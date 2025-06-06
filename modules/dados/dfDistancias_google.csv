@@ -1,0 +1,249 @@
+BAIRRO,CIDADE,ESTADO,MODO,DISTANCIA_KM,DURACAO,SAIDA_PARA_18H
+barra da tijuca,rio de janeiro,RJ,transit,27.39,1 hora 14 minutos,16:46
+huimaita,rio de janeiro,RJ,transit,6.07,30 minutos,17:30
+itaipu,niterói,RJ,transit,26.92,1 hora 27 minutos,16:32
+laranjeiras,rio de janeiro,RJ,transit,4.52,32 minutos,17:28
+pilares,rio de janeiro,RJ,transit,22.67,1 hora 9 minutos,16:51
+botafogo,rio de janeiro,RJ,transit,2.54,25 minutos,17:35
+copacabana,rio de janeiro,RJ,transit,3.96,25 minutos,17:34
+cachambi,rio de janeiro,RJ,transit,19.68,1 hora 3 minutos,16:57
+benfica,rio de janeiro,RJ,transit,14.74,1 hora 1 minuto,16:58
+todos os santos,rio de janeiro,RJ,transit,21.99,1 hora 15 minutos,16:45
+galeao,rio de janeiro,RJ,transit,26.75,1 hora 32 minutos,16:27
+rio comprido,rio de janeiro,RJ,transit,9.03,39 minutos,17:20
+tijuca,rio de janeiro,RJ,transit,13.44,50 minutos,17:09
+urca,rio de janeiro,RJ,transit,0.0,0 min,18:00
+cosmorama,mesquita,RJ,transit,51.72,1 hora 46 minutos,16:13
+pechincha,rio de janeiro,RJ,transit,31.96,1 hora 27 minutos,16:33
+lins de vasconcelos,rio de janeiro,RJ,transit,21.75,1 hora 15 minutos,16:45
+vila itamarati,rio de janeiro,RJ,transit,11.54,46 minutos,17:14
+vila isabel,rio de janeiro,RJ,transit,17.06,56 minutos,17:03
+pedra de guaratiba,rio de janeiro,RJ,transit,55.1,2 horas 17 minutos,15:42
+pavuna,rio de janeiro,RJ,transit,45.3,1 hora 23 minutos,16:36
+recreio dos bandeirantes,rio de janeiro,RJ,transit,38.02,1 hora 25 minutos,16:34
+encantado,rio de janeiro,RJ,transit,24.36,1 hora 9 minutos,16:50
+freguesia,rio de janeiro,RJ,transit,30.24,1 hora 23 minutos,16:36
+engenho da rainha,rio de janeiro,RJ,transit,26.82,1 hora 13 minutos,16:46
+vila da penha,rio de janeiro,RJ,transit,30.27,1 hora 33 minutos,16:27
+curicica,rio de janeiro,RJ,transit,39.87,1 hora 49 minutos,16:11
+vila guanabara,rio de janeiro,RJ,transit,36.88,1 hora 29 minutos,16:31
+bento ribeiro,rio de janeiro,RJ,transit,34.52,1 hora 28 minutos,16:32
+marechal hermes,rio de janeiro,RJ,transit,27.71,1 hora 26 minutos,16:34
+bangu,rio de janeiro,RJ,transit,53.6,1 hora 56 minutos,16:03
+meier,rio de janeiro,RJ,transit,17.86,57 minutos,17:02
+vila nova,nova iguaçu,RJ,transit,49.14,1 hora 23 minutos,16:37
+engenho novo,rio de janeiro,RJ,transit,16.39,1 hora 0 minutos,17:00
+jardim jurema,sao joao de meriti,RJ,transit,45.49,1 hora 40 minutos,16:20
+colégio,rio de janeiro,RJ,transit,40.89,1 hora 15 minutos,16:44
+inhaúma,rio de janeiro,RJ,transit,25.05,1 hora 12 minutos,16:48
+realengo,rio de janeiro,RJ,transit,35.61,1 hora 36 minutos,16:24
+jacarepagua,rio de janeiro,RJ,transit,34.58,1 hora 37 minutos,16:23
+flamengo,rio de janeiro,RJ,transit,4.64,21 minutos,17:39
+anchieta,rio de janeiro,RJ,transit,38.3,1 hora 41 minutos,16:18
+alto da boa vista,rio de janeiro,RJ,transit,32.13,1 hora 14 minutos,16:45
+barreto,niterói,RJ,transit,33.72,1 hora 8 minutos,16:52
+vila sao luis,duque de caxias,RJ,transit,39.68,1 hora 48 minutos,16:11
+mare,rio de janeiro,RJ,transit,24.14,1 hora 4 minutos,16:56
+ipanema,rio de janeiro,RJ,transit,6.24,28 minutos,17:31
+rocha,rio de janeiro,RJ,transit,16.21,1 hora 6 minutos,16:53
+andaraí,rio de janeiro,RJ,transit,16.59,1 hora 3 minutos,16:56
+varzea,teresopolis,RJ,transit,112.89,2 horas 52 minutos,15:07
+itanhanga,rio de janeiro,RJ,transit,26.02,1 hora 12 minutos,16:48
+praca da ponte,rio de janeiro,RJ,transit,53.31,1 hora 57 minutos,16:03
+bonsucesso,rio de janeiro,RJ,transit,22.2,1 hora 3 minutos,16:56
+vila kosmos,rio de janeiro,RJ,transit,25.26,1 hora 19 minutos,16:41
+maracanã,rio de janeiro,RJ,transit,10.94,43 minutos,17:17
+centro,rio de janeiro,RJ,transit,8.78,34 minutos,17:25
+rocha miranda,rio de janeiro,RJ,transit,40.85,1 hora 25 minutos,16:34
+campo grande,rio de janeiro,RJ,transit,61.22,2 horas 9 minutos,15:50
+praça seca,rio de janeiro,RJ,transit,33.42,1 hora 23 minutos,16:36
+cordovil,rio de janeiro,RJ,transit,35.97,1 hora 12 minutos,16:47
+mutua,são gonçalo,RJ,transit,45.09,1 hora 29 minutos,16:31
+leblon,rio de janeiro,RJ,transit,9.6,37 minutos,17:22
+piabeta,mage,RJ,transit,66.14,2 horas 42 minutos,15:18
+cidade nova,rio de janeiro,RJ,transit,7.93,41 minutos,17:19
+fonseca,niterói,RJ,transit,26.46,1 hora 2 minutos,16:58
+sao cristovao,rio de janeiro,RJ,transit,12.1,56 minutos,17:04
+praça da bandeira,rio de janeiro,RJ,transit,9.57,40 minutos,17:19
+inga,niterói,RJ,transit,30.89,1 hora 18 minutos,16:42
+santa catarina,são gonçalo,RJ,transit,38.11,1 hora 11 minutos,16:49
+vista alegre,rio de janeiro,RJ,transit,36.46,1 hora 15 minutos,16:45
+santa rosa,niterói,RJ,transit,30.37,1 hora 22 minutos,16:37
+itapeba,maricá,RJ,transit,76.83,2 horas 23 minutos,15:37
+gavea,rio de janeiro,RJ,transit,9.97,42 minutos,17:18
+são conrado,rio de janeiro,RJ,transit,16.56,51 minutos,17:08
+penha,rio de janeiro,RJ,transit,26.17,1 hora 14 minutos,16:46
+farrula,sao joao de meriti,RJ,transit,43.95,1 hora 15 minutos,16:45
+jardim campomar,rio das ostras,RJ,transit,557.17,15 horas 28 minutos,02:31
+madureira,rio de janeiro,RJ,transit,31.22,1 hora 24 minutos,16:36
+jardim guanabara,rio de janeiro,RJ,transit,33.17,1 hora 23 minutos,16:36
+engenho de dentro,rio de janeiro,RJ,transit,19.81,1 hora 12 minutos,16:48
+taquara,rio de janeiro,RJ,transit,33.26,1 hora 42 minutos,16:17
+grajaú,rio de janeiro,RJ,transit,27.46,1 hora 6 minutos,16:54
+humaitá,rio de janeiro,RJ,transit,6.07,30 minutos,17:30
+irajá,rio de janeiro,RJ,transit,26.95,1 hora 13 minutos,16:47
+colubande,são gonçalo,RJ,transit,37.06,1 hora 21 minutos,16:39
+mutando,rio de janeiro,RJ,transit,45.32,1 hora 38 minutos,16:22
+ponto chic,nova iguaçu,RJ,transit,56.87,1 hora 53 minutos,16:06
+paciencia,rio de janeiro,RJ,transit,65.28,2 horas 17 minutos,15:43
+vigario geral,rio de janeiro,RJ,transit,35.31,1 hora 10 minutos,16:49
+jardim botânico,rio de janeiro,RJ,transit,8.8,40 minutos,17:19
+jardim meriti,sao joao de meriti,RJ,transit,42.91,1 hora 17 minutos,16:43
+coelho neto,rio de janeiro,RJ,transit,39.72,1 hora 19 minutos,16:40
+santa cruz,rio de janeiro,RJ,transit,74.87,2 horas 52 minutos,15:07
+guaratiba,rio de janeiro,RJ,transit,56.45,2 horas 35 minutos,15:25
+ilha do governador,rio de janeiro,RJ,transit,29.06,1 hora 27 minutos,16:32
+engenho do mato,niterói,RJ,transit,30.74,1 hora 40 minutos,16:19
+bancários,rio de janeiro,RJ,transit,32.58,1 hora 36 minutos,16:24
+banco de areia,mesquita,RJ,transit,46.39,1 hora 37 minutos,16:23
+senador vasconcelos,rio de janeiro,RJ,transit,61.71,2 horas 8 minutos,15:52
+inhoaiba,rio de janeiro,RJ,transit,52.95,2 horas 19 minutos,15:41
+parque sao vicente,belford roxo,RJ,transit,52.41,2 horas 16 minutos,15:43
+queimados,queimados,RJ,transit,66.39,1 hora 57 minutos,16:03
+jardim tropical,nova iguaçu,RJ,transit,51.54,1 hora 30 minutos,16:29
+village sao roque,rio de janeiro,RJ,transit,,,
+olaria,rio de janeiro,RJ,transit,24.18,1 hora 5 minutos,16:54
+anil,rio de janeiro,RJ,transit,30.45,1 hora 26 minutos,16:34
+quintino bocaiuva,rio de janeiro,RJ,transit,28.71,1 hora 18 minutos,16:42
+santa eugenia,nova iguaçu,RJ,transit,56.09,2 horas 1 minuto,15:59
+parada de lucas,rio de janeiro,RJ,transit,34.32,1 hora 3 minutos,16:56
+rocinha,rio de janeiro,RJ,transit,16.55,1 hora 0 minutos,16:59
+caju,rio de janeiro,RJ,transit,16.96,1 hora 0 minutos,17:00
+lagoa,rio de janeiro,RJ,transit,7.1,35 minutos,17:25
+brás de pina,rio de janeiro,RJ,transit,36.62,1 hora 23 minutos,16:36
+vicente de carvalho,rio de janeiro,RJ,transit,25.74,1 hora 11 minutos,16:49
+piedade,rio de janeiro,RJ,transit,25.44,1 hora 12 minutos,16:48
+centro,minas gerais,RJ,transit,0.61,14 minutos,17:46
+campinho,rio de janeiro,RJ,transit,30.57,1 hora 24 minutos,16:35
+santa teresa,rio de janeiro,RJ,transit,9.37,51 minutos,17:08
+portuguesa,rio de janeiro,RJ,transit,34.01,1 hora 32 minutos,16:28
+santissimo,rio de janeiro,RJ,transit,54.12,2 horas 6 minutos,15:54
+sao goncalo,são gonçalo,RJ,transit,35.41,1 hora 17 minutos,16:42
+gloria,rio de janeiro,RJ,transit,6.17,24 minutos,17:36
+nova america,nova iguaçu,RJ,transit,57.45,1 hora 47 minutos,16:12
+jardim anhanga,duque de caxias,RJ,transit,57.01,2 horas 14 minutos,15:45
+higienópolis,rio de janeiro,RJ,transit,22.39,1 hora 5 minutos,16:54
+cocotá,rio de janeiro,RJ,transit,32.34,1 hora 32 minutos,16:28
+bairro de fatima,rio de janeiro,RJ,transit,8.48,38 minutos,17:22
+aldeia da prata,itaborai,RJ,transit,54.22,1 hora 31 minutos,16:29
+freguesia (ilha do governador),rio de janeiro,RJ,transit,35.14,1 hora 45 minutos,16:15
+niteroi,niterói,RJ,transit,28.16,54 minutos,17:06
+jardim gramacho,duque de caxias,RJ,transit,39.97,1 hora 45 minutos,16:14
+cosme velho,rio de janeiro,RJ,transit,8.46,44 minutos,17:16
+padre miguel,rio de janeiro,RJ,transit,37.58,1 hora 39 minutos,16:20
+rio do ouro,niterói,RJ,transit,44.37,2 horas 7 minutos,15:53
+riachuelo,rio de janeiro,RJ,transit,15.25,58 minutos,17:01
+vila centenario,duque de caxias,RJ,transit,40.24,1 hora 33 minutos,16:26
+icarai,niterói,RJ,transit,26.88,1 hora 7 minutos,16:53
+catete,rio de janeiro,RJ,transit,5.8,30 minutos,17:29
+jardim sulacap,rio de janeiro,RJ,transit,31.86,1 hora 30 minutos,16:29
+são francisco xavier,rio de janeiro,RJ,transit,13.65,50 minutos,17:10
+monero,rio de janeiro,RJ,transit,35.58,1 hora 35 minutos,16:25
+piratininga,niterói,RJ,transit,26.63,1 hora 26 minutos,16:33
+abolicao,rio de janeiro,RJ,transit,26.28,1 hora 7 minutos,16:52
+vidigal,rio de janeiro,RJ,transit,11.67,48 minutos,17:12
+oswaldo cruz,rio de janeiro,RJ,transit,30.98,1 hora 31 minutos,16:29
+pitangueiras,rio de janeiro,RJ,transit,38.49,1 hora 41 minutos,16:19
+vila brasil,itaborai,RJ,transit,56.62,1 hora 59 minutos,16:00
+deodoro,rio de janeiro,RJ,transit,45.33,1 hora 27 minutos,16:33
+catumbi,rio de janeiro,RJ,transit,6.72,34 minutos,17:26
+estacio,rio de janeiro,RJ,transit,10.77,48 minutos,17:12
+petropolis,petropolis,RJ,transit,75.63,1 hora 52 minutos,16:08
+jardim excelsior,rio de janeiro,RJ,transit,138.29,3 horas 26 minutos,14:34
+ramos,rio de janeiro,RJ,transit,23.78,1 hora 11 minutos,16:48
+praia brava,angra dos reis,RJ,transit,210.48,8 horas 48 minutos,09:11
+rio comprido,sao paulo,RJ,transit,9.03,39 minutos,17:20
+vargem pequena,rio de janeiro,RJ,transit,44.1,1 hora 29 minutos,16:31
+lindo parque,são gonçalo,RJ,transit,39.3,1 hora 19 minutos,16:40
+quitandinha,petropolis,RJ,transit,,,
+cascadura,rio de janeiro,RJ,transit,29.0,1 hora 14 minutos,16:45
+parque vila nova,duque de caxias,RJ,transit,37.53,1 hora 25 minutos,16:35
+caxias,rio de janeiro,RJ,transit,34.08,1 hora 8 minutos,16:51
+taua,rio de janeiro,RJ,transit,33.24,1 hora 34 minutos,16:25
+brasilandia,são gonçalo,RJ,transit,40.11,1 hora 27 minutos,16:33
+nova cidade,nilopolis,RJ,transit,47.66,1 hora 47 minutos,16:12
+gardênia azul,rio de janeiro,RJ,transit,37.57,1 hora 27 minutos,16:32
+santa luzia,são gonçalo,RJ,transit,49.26,1 hora 36 minutos,16:23
+laranjal,são gonçalo,RJ,transit,48.33,1 hora 39 minutos,16:21
+jardim primavera,duque de caxias,RJ,transit,51.34,2 horas 5 minutos,15:55
+cosmos,rio de janeiro,RJ,transit,55.05,2 horas 24 minutos,15:35
+jardim caicara,rio de janeiro,RJ,transit,139.04,3 horas 26 minutos,14:33
+parque ipiranga,rio de janeiro,RJ,transit,184.86,4 horas 8 minutos,13:52
+carlos sampaio,nova iguaçu,RJ,transit,65.7,2 horas 34 minutos,15:26
+jardim rosario,rio de janeiro,RJ,transit,53.84,2 horas 14 minutos,15:46
+jacaré,rio de janeiro,RJ,transit,17.2,1 hora 3 minutos,16:57
+gamboa,rio de janeiro,RJ,transit,10.55,41 minutos,17:18
+tomas coelho,rio de janeiro,RJ,transit,24.55,1 hora 9 minutos,16:51
+jardim olavo bilac,sao joao de meriti,RJ,transit,45.06,2 horas 13 minutos,15:46
+sao francisco,niterói,RJ,transit,32.88,1 hora 17 minutos,16:42
+del castilho,rio de janeiro,RJ,transit,23.25,1 hora 4 minutos,16:55
+leme,rio de janeiro,RJ,transit,3.52,35 minutos,17:24
+jardim boa esperança,rio de janeiro,RJ,transit,228.88,8 horas 21 minutos,09:39
+morin,petropolis,RJ,transit,,,
+vila de cava,nova iguaçu,RJ,transit,62.6,2 horas 14 minutos,15:45
+ufrrj,rio de janeiro,RJ,transit,79.58,3 horas 30 minutos,14:29
+jardim america,rio de janeiro,RJ,transit,38.21,1 hora 20 minutos,16:40
+maria da graca,rio de janeiro,RJ,transit,19.57,1 hora 6 minutos,16:53
+ferradura,armacao dos buzios,RJ,transit,165.77,4 horas 47 minutos,13:13
+vila valqueire,rio de janeiro,RJ,transit,29.16,1 hora 21 minutos,16:39
+bairro das gracas,belford roxo,RJ,transit,48.98,1 hora 36 minutos,16:24
+vilar dos teles,sao joao de meriti,RJ,transit,46.0,1 hora 39 minutos,16:21
+vargem grande,rio de janeiro,RJ,transit,48.31,1 hora 35 minutos,16:24
+parque anchieta,rio de janeiro,RJ,transit,38.3,1 hora 41 minutos,16:18
+sepetiba,rio de janeiro,RJ,transit,63.31,2 horas 49 minutos,15:10
+jardim carioca,rio de janeiro,RJ,transit,30.59,1 hora 33 minutos,16:26
+acari,rio de janeiro,RJ,transit,31.1,1 hora 21 minutos,16:39
+vila oito de maio,rio de janeiro,RJ,transit,36.54,1 hora 24 minutos,16:36
+maria paula,são gonçalo,RJ,transit,36.79,1 hora 40 minutos,16:20
+santa teresinha,mesquita,RJ,transit,55.4,1 hora 57 minutos,16:03
+penha circular,rio de janeiro,RJ,transit,28.0,1 hora 22 minutos,16:38
+rio das pedras,rio de janeiro,RJ,transit,29.25,1 hora 17 minutos,16:43
+vila pauline,belford roxo,RJ,transit,52.4,2 horas 12 minutos,15:48
+vila leopoldina,duque de caxias,RJ,transit,40.92,1 hora 47 minutos,16:12
+raul veiga,são gonçalo,RJ,transit,46.13,1 hora 30 minutos,16:29
+santo cristo,rio de janeiro,RJ,transit,18.61,53 minutos,17:06
+centro,nova iguaçu,RJ,transit,51.76,1 hora 33 minutos,16:27
+zumbi,rio de janeiro,RJ,transit,38.81,1 hora 36 minutos,16:24
+edson passos,mesquita,RJ,transit,55.01,1 hora 48 minutos,16:11
+jardim glaucia,belford roxo,RJ,transit,48.26,1 hora 51 minutos,16:08
+coelho da rocha,sao joao de meriti,RJ,transit,45.25,1 hora 27 minutos,16:32
+vila inhomirim,mage,RJ,transit,63.81,2 horas 43 minutos,15:16
+cruzeiro do sul,mesquita,RJ,transit,47.66,1 hora 43 minutos,16:17
+prado,nova friburgo,RJ,transit,,,
+parque lafaiete,duque de caxias,RJ,transit,45.31,1 hora 37 minutos,16:23
+sete pontes,são gonçalo,RJ,transit,39.17,1 hora 24 minutos,16:35
+ouro verde,nova iguaçu,RJ,transit,58.63,2 horas 18 minutos,15:41
+mirandopolis,rio de janeiro,RJ,transit,959.01,18 horas 13 minutos,23:47
+plante cafe,rio de janeiro,RJ,transit,0.61,14 minutos,17:46
+parada 40,niterói,RJ,transit,38.86,1 hora 21 minutos,16:38
+senador camara,rio de janeiro,RJ,transit,53.81,2 horas 18 minutos,15:41
+cidade de deus,rio de janeiro,RJ,transit,40.53,1 hora 47 minutos,16:12
+camorim,rio de janeiro,RJ,transit,47.7,2 horas 3 minutos,15:57
+turiacu,rio de janeiro,RJ,transit,35.11,1 hora 36 minutos,16:24
+rio de janeiro,rio de janeiro,RJ,transit,0.61,14 minutos,17:46
+jarcarepagua,rio de janeiro,RJ,transit,34.58,1 hora 37 minutos,16:23
+piquet,rio de janeiro,RJ,transit,43.69,1 hora 33 minutos,16:27
+engenho do porto,duque de caxias,RJ,transit,48.38,1 hora 44 minutos,16:16
+parque vitoria,rio de janeiro,RJ,transit,22.26,42 minutos,17:17
+monte castelo,nova iguaçu,RJ,transit,48.94,1 hora 32 minutos,16:28
+agua santa,rio de janeiro,RJ,transit,23.68,1 hora 4 minutos,16:55
+riachao,nova iguaçu,RJ,transit,61.13,1 hora 56 minutos,16:03
+vila sao sebastiao,duque de caxias,RJ,transit,37.94,1 hora 42 minutos,16:18
+da luz,nova iguaçu,RJ,transit,56.75,2 horas 1 minuto,15:58
+prata,teresopolis,RJ,transit,,,
+vila rosario,duque de caxias,RJ,transit,44.23,1 hora 55 minutos,16:04
+vila itamarati,duque de caxias,RJ,transit,39.56,1 hora 47 minutos,16:12
+vila guanabara,duque de caxias,RJ,transit,36.88,1 hora 29 minutos,16:31
+jacarepaguá,rio de janeiro,RJ,transit,34.58,1 hora 37 minutos,16:23
+praca da ponte,miguel pereira,RJ,transit,,,
+mutondo,são gonçalo,RJ,transit,45.32,1 hora 38 minutos,16:22
+jardim excelsior,cabo frio,RJ,transit,138.29,3 horas 26 minutos,14:34
+centro,duque de caxias,RJ,transit,37.73,1 hora 26 minutos,16:34
+jardim caicara,cabo frio,RJ,transit,139.04,3 horas 26 minutos,14:33
+parque ipiranga,resende,RJ,transit,184.86,4 horas 10 minutos,13:50
+jardim rosario,duque de caxias,RJ,transit,53.84,2 horas 14 minutos,15:46
+vila 8 de maio,duque de caxias,RJ,transit,34.08,1 hora 8 minutos,16:51
+mirandopolis,quatis,RJ,transit,,,
+plante cafe,miguel pereira,RJ,transit,,,
+parque vitoria,duque de caxias,RJ,transit,46.45,2 horas 1 minuto,15:59
+jardim boa esperança,bom jardim,RJ,transit,228.88,8 horas 31 minutos,09:28
