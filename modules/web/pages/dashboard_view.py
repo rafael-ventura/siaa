@@ -1,7 +1,7 @@
 import streamlit as st
 
-from modules.web.graficos.secao_genero import graficos_secao_genero
 from modules.web.graficos.secao_geografica import graficos_secao_geografica
+from modules.web.graficos.secao_genero import graficos_secao_genero
 from modules.web.graficos.secao_ingresso import graficos_secao_ingresso
 from modules.web.graficos.secao_pandemia import graficos_secao_pandemia
 from modules.web.graficos.secao_perfil import graficos_secao_perfil

@@ -7,6 +7,8 @@ import re
 
 from unidecode import unidecode
 
+from modules.web.graficos.utils import aplicar_categorizacao_evasao
+
 
 def calcula_filtragem(df, condicoes):
     total_inicial = len(df)
@@ -233,6 +235,9 @@ def graficos_secao_geografica(df: pd.DataFrame):
     ]
     df_filtrado, total_inicial, total_final, removidos = calcula_filtragem(df, condicoes)
     exibe_info_filtragem(total_inicial, total_final, removidos)
+
+    # Padroniza evasão
+    df_filtrado = aplicar_categorizacao_evasao(df_filtrado)
 
     zona_mais = grafico_bairros(df_filtrado)
     min_alunos = 10

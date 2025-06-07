@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 
 from modules.web.graficos.utils import calcula_filtragem, exibe_info_filtragem, categorizar_ingresso_detalhado, \
-    agrupar_ampla_concorrencia
+    agrupar_ampla_concorrencia, aplicar_categorizacao_evasao
 
 
 # --- Funções para gráficos ---
@@ -113,7 +113,6 @@ def graficos_secao_ingresso(df: pd.DataFrame):
 
     total_inicial = len(df)
 
-    # Aplicação dos filtros específicos da seção
     condicoes = [
         lambda d: ~(
             (d['ANO_INGRESSO'] <= 2013) &
@@ -122,15 +121,15 @@ def graficos_secao_ingresso(df: pd.DataFrame):
     ]
     df_filtrado, _, total_final, removidos = calcula_filtragem(df, condicoes)
 
-    # Exibindo informações sobre registros filtrados
     exibe_info_filtragem(total_inicial, total_final, removidos)
 
-    # Categorização simplificada detalhada
+    # Formatação ingresso e evasão padronizada
     df_filtrado['FORMA_INGRESSO_SIMPLIFICADO'] = df_filtrado.apply(categorizar_ingresso_detalhado, axis=1)
+    df_filtrado = aplicar_categorizacao_evasao(df_filtrado)
 
-    # Gráficos específicos da seção
     grafico_evolucao(df_filtrado)
     graficos_pizza(df_filtrado)
     grafico_cra(df_filtrado)
     grafico_tempo_medio(df_filtrado)
     grafico_evasao(df_filtrado)
+

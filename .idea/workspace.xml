@@ -7,13 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/modules/web/graficos/utils.py" afterDir="false" />
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="refatoracao das secoes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/limpeza/forma_ingresso.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/forma_ingresso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/pages/dashboard_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/pages/dashboard_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +41,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "rafael-ventura"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/rafael-ventura/siaa.git",
+    "accountId": "4d8739d9-bdb8-44a9-909e-6b057cab507b"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -138,7 +150,7 @@
       <workItem from="1749077833621" duration="7993000" />
       <workItem from="1749165460748" duration="1712000" />
       <workItem from="1749168144370" duration="7006000" />
-      <workItem from="1749302915949" duration="3579000" />
+      <workItem from="1749302915949" duration="7128000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes na padronização da forma_ingresso.py">
       <option name="closed" value="true" />
@@ -212,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749003259981</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="refatoracao das secoes">
+      <option name="closed" value="true" />
+      <created>1749306677299</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749306677299</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +260,8 @@
     <MESSAGE value="secao genero" />
     <MESSAGE value="secao distancia" />
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="refatoracao das secoes" />
+    <option name="LAST_COMMIT_MESSAGE" value="refatoracao das secoes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

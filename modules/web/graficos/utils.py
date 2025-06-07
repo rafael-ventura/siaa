@@ -134,6 +134,26 @@ def calcular_taxa_evasao(df: pd.DataFrame, coluna_agrupadora: str, coluna_evasao
     )
     return taxa_evasao.sort_values('Taxa de Evasão (%)', ascending=False)
 
+# --- Função padronizada para categorização da evasão ---
+
+def categorizar_evasao(valor: str) -> str:
+    valor = str(valor).strip().upper()
+    if valor == "CON":
+        return "Concluiu"
+    elif valor in ["ABA", "CAN", "DESISTÊNCIA SISU", "DES", "JUB", "TIC"]:
+        return "Evasão"
+    elif valor == "SEM EVASÃO":
+        return "Cursando"
+    elif valor in ["FAL", "NÃO IDENTIFICADA"]:
+        return "Outros"
+    else:
+        return "Outros"
+
+def aplicar_categorizacao_evasao(df: pd.DataFrame, coluna_original='FORMA_EVASAO', coluna_nova='FORMA_EVASAO_PADRONIZADA'):
+    df[coluna_nova] = df[coluna_original].apply(categorizar_evasao)
+    return df
+
+
 def agrupar_ampla_concorrencia(df, coluna='FORMA_INGRESSO_PADRONIZADA'):
     df = df.copy()
     df[coluna] = df[coluna].replace({

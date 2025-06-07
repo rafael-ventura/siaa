@@ -2,67 +2,95 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 
-def graficos_secao_genero(df: pd.DataFrame):
-    st.header("📌 Relações de Gênero entre os Discentes")
+from modules.web.graficos.utils import (
+    calcula_filtragem,
+    exibe_info_filtragem,
+    formatar_sexo, aplicar_categorizacao_evasao
+)
 
-    # 🔍 Filtragem inicial: Excluir alunos de 2024 em diante
-    df_filtrado = df[df['ANO_INGRESSO'] < 2024].copy()
+# --- Gráficos ---
 
-    # 1. Distribuição por sexo ao longo dos anos
+def grafico_distribuicao_sexo_por_ano(df):
     st.subheader("Distribuição de Alunos por Sexo ao Longo dos Anos")
-    dist_ano = df_filtrado.groupby(['ANO_INGRESSO', 'SEXO']).size().reset_index(name='Total')
-    fig_dist_ano = px.bar(
+    dist_ano = df.groupby(['ANO_INGRESSO', 'SEXO_FORMATADO']).size().reset_index(name='Total')
+    fig = px.bar(
         dist_ano,
         x='ANO_INGRESSO',
         y='Total',
-        color='SEXO',
+        color='SEXO_FORMATADO',
         barmode='group',
-        labels={'ANO_INGRESSO': 'Ano de Ingresso', 'Total': 'Quantidade', 'SEXO': 'Sexo'},
-        color_discrete_map={'M': '#3498db', 'F': '#e17055'},
+        labels={'ANO_INGRESSO': 'Ano de Ingresso', 'Total': 'Quantidade', 'SEXO_FORMATADO': 'Sexo'},
+        color_discrete_map={'Masculino': '#3498db', 'Feminino': '#e17055'},
         title='Distribuição de Alunos por Sexo e Ano de Ingresso'
     )
-    st.plotly_chart(fig_dist_ano)
+    st.plotly_chart(fig, key='dist_sexo_ano')
 
-    # 2. Diferença de desempenho (CRA) entre homens e mulheres
+
+def grafico_cra_por_sexo(df):
     st.subheader("Diferença de Desempenho (CRA) entre Homens e Mulheres")
 
-    # Remove alunos com CRA > 10
-    df_cra = df_filtrado[df_filtrado['CRA'] <= 10].copy()
+    df_cra = df[df['CRA'] <= 10].copy()
 
-    fig_cra_sexo = px.box(
+    fig = px.box(
         df_cra,
-        x='SEXO',
+        x='SEXO_FORMATADO',
         y='CRA',
-        color='SEXO',
+        color='SEXO_FORMATADO',
         title='Distribuição do CRA por Sexo',
-        labels={'CRA': 'CRA', 'SEXO': 'Sexo'},
-        color_discrete_map={'M': '#3498db', 'F': '#e17055'}
+        labels={'CRA': 'CRA', 'SEXO_FORMATADO': 'Sexo'},
+        color_discrete_map={'Masculino': '#3498db', 'Feminino': '#e17055'}
     )
-    st.plotly_chart(fig_cra_sexo)
+    st.plotly_chart(fig, key='cra_por_sexo')
 
-    # Média de CRA por sexo (após o filtro)
-    media_cra_sexo = df_cra.groupby('SEXO')['CRA'].mean().reset_index()
+    media_cra_sexo = df_cra.groupby('SEXO_FORMATADO')['CRA'].mean().reset_index()
     media_cra_sexo.columns = ['Sexo', 'Média CRA']
+
     st.markdown("**📋 Tabela Resumo: Média de CRA por Sexo**")
     st.dataframe(media_cra_sexo, use_container_width=True)
 
-    # 3. Frequência de evasão por sexo
+
+def grafico_evasao_por_sexo(df):
     st.subheader("Frequência de Evasão por Sexo")
-    df_filtrado['EVADIU'] = df_filtrado['FORMA_EVASAO_PADRONIZADA'].apply(
-        lambda x: 1 if str(x).lower() in ['evadido', 'evasão', 'evasao'] else 0
-    )
-    evasao_sexo = df_filtrado.groupby('SEXO')['EVADIU'].agg(['sum', 'count']).reset_index()
+
+    df['EVADIU'] = df['FORMA_EVASAO_PADRONIZADA'].str.lower().isin(['evadido', 'evasão', 'evasao']).astype(int)
+
+    evasao_sexo = df.groupby('SEXO_FORMATADO')['EVADIU'].agg(['sum', 'count']).reset_index()
     evasao_sexo['Taxa de Evasão (%)'] = 100 * evasao_sexo['sum'] / evasao_sexo['count']
 
-    fig_evasao = px.bar(
+    fig = px.bar(
         evasao_sexo,
-        x='SEXO',
+        x='SEXO_FORMATADO',
         y='Taxa de Evasão (%)',
-        color='SEXO',
-        labels={'SEXO': 'Sexo', 'Taxa de Evasão (%)': 'Taxa de Evasão (%)'},
-        color_discrete_map={'M': '#3498db', 'F': '#e17055'},
+        color='SEXO_FORMATADO',
+        labels={'SEXO_FORMATADO': 'Sexo', 'Taxa de Evasão (%)': 'Taxa de Evasão (%)'},
+        color_discrete_map={'Masculino': '#3498db', 'Feminino': '#e17055'},
         title='Taxa de Evasão por Sexo'
     )
-    st.plotly_chart(fig_evasao)
+    st.plotly_chart(fig, key='evasao_por_sexo')
+
     st.markdown("**📋 Tabela Resumo: Taxa de Evasão por Sexo**")
-    st.dataframe(evasao_sexo[['SEXO', 'Taxa de Evasão (%)']], use_container_width=True)
+    st.dataframe(evasao_sexo[['SEXO_FORMATADO', 'Taxa de Evasão (%)']], use_container_width=True)
+
+
+# --- Função Principal da Seção ---
+
+def graficos_secao_genero(df: pd.DataFrame):
+    st.header("📌 Relações de Gênero entre os Discentes")
+
+    total_inicial = len(df)
+
+    # Aplicação dos filtros específicos da seção
+    condicoes = [
+        lambda d: d['SEXO'].isin(['M', 'F', 'Masculino', 'Feminino'])
+    ]
+    df_filtrado, _, total_final, removidos = calcula_filtragem(df, condicoes)
+
+    exibe_info_filtragem(total_inicial, total_final, removidos)
+
+    # Formatação do sexo e evasão padronizada
+    df_filtrado = formatar_sexo(df_filtrado)
+    df_filtrado = aplicar_categorizacao_evasao(df_filtrado)
+
+    grafico_distribuicao_sexo_por_ano(df_filtrado)
+    grafico_cra_por_sexo(df_filtrado)
+    grafico_evasao_por_sexo(df_filtrado)
