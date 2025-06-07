@@ -4,10 +4,12 @@ import re
 from unidecode import unidecode
 import streamlit as st
 
+
 # --- Funções Gerais de Texto ---
 
 def normaliza_nome(texto: str) -> str:
     return unidecode(str(texto)).strip().lower()
+
 
 # --- Funções de Conversão de Dados ---
 
@@ -15,16 +17,18 @@ def tempo_em_minutos(t: str) -> float:
     if pd.isna(t): return np.nan
     t = str(t)
     horas = re.search(r'(\d+)\s*h', t)
-    mins  = re.search(r'(\d+)\s*min', t)
+    mins = re.search(r'(\d+)\s*min', t)
     h = int(horas.group(1)) if horas else 0
     m = int(mins.group(1)) if mins else 0
     return h * 60 + m
+
 
 def minutos_para_hrmin(m: float) -> str:
     if pd.isna(m): return "Não informado"
     m = int(m)
     horas, mins = divmod(m, 60)
     return f"{horas}h {mins}min" if horas else f"{mins}min"
+
 
 # --- Funções de Formatação ---
 
@@ -34,19 +38,12 @@ def formatar_sexo(df: pd.DataFrame) -> pd.DataFrame:
         df['SEXO_FORMATADO'] = df['SEXO'].map({'M': 'Masculino', 'F': 'Feminino'})
     return df
 
+
 def safe_mode(s: pd.Series) -> str:
     return s.dropna().mode().iloc[0] if not s.dropna().empty else "Não informado"
 
-# --- Funções de Categorização ---
 
-def categorizar_ingresso_simples(forma: str) -> str:
-    forma = forma.lower()
-    if any(k in forma for k in ['escola pública', 'étnico', 'renda', 'deficiência']):
-        return 'Cotista'
-    elif any(k in forma for k in ['pré-cotas', 'ampla concorrência', 'vestibular', 'enem']):
-        return 'Ampla Concorrência'
-    else:
-        return 'Outros'
+# --- Funções de Categorização ---
 
 def categorizar_ingresso_detalhado(row: pd.Series) -> str:
     forma = row['FORMA_INGRESSO_PADRONIZADA']
@@ -67,6 +64,7 @@ def categorizar_ingresso_detalhado(row: pd.Series) -> str:
     else:
         return "Outros"
 
+
 # --- Funções de Filtros Comuns ---
 
 def calcula_filtragem(df: pd.DataFrame, condicoes: list) -> tuple:
@@ -78,10 +76,12 @@ def calcula_filtragem(df: pd.DataFrame, condicoes: list) -> tuple:
     removidos = total_inicial - total_final
     return df_filtrado, total_inicial, total_final, removidos
 
+
 def exibe_info_filtragem(total_inicial: int, total_final: int, removidos: int):
     st.info(f"Total original: **{total_inicial} alunos**  \n"
             f"Removidos pelos filtros: **{removidos} alunos**  \n"
             f"Total final para análise: **{total_final} alunos**")
+
 
 # --- Funções de Estatística Básica ---
 
@@ -94,9 +94,11 @@ def calcula_media_mediana(df: pd.DataFrame, grupo: str, valor: str) -> pd.DataFr
     )
     return resultado
 
+
 # --- Funções para Testes Estatísticos ---
 
 from scipy.stats import mannwhitneyu
+
 
 def mann_whitney(df: pd.DataFrame, grupo_coluna: str, valor_coluna: str, grupo1: str, grupo2: str):
     grupo1_valores = df[df[grupo_coluna] == grupo1][valor_coluna].dropna()
@@ -108,7 +110,10 @@ def mann_whitney(df: pd.DataFrame, grupo_coluna: str, valor_coluna: str, grupo1:
     else:
         return None, None
 
-def exibir_resultado_mannwhitney(stat, pvalue, mensagem_diferenca="Diferença estatisticamente significativa encontrada.", mensagem_sem_diferenca="Não há diferença estatisticamente significativa."):
+
+def exibir_resultado_mannwhitney(stat, pvalue,
+                                 mensagem_diferenca="Diferença estatisticamente significativa encontrada.",
+                                 mensagem_sem_diferenca="Não há diferença estatisticamente significativa."):
     if stat is None:
         st.info("Não há dados suficientes para o teste de hipótese.")
     else:
@@ -118,15 +123,18 @@ def exibir_resultado_mannwhitney(stat, pvalue, mensagem_diferenca="Diferença es
         else:
             st.info(mensagem_sem_diferenca)
 
+
 # --- Funções de Binning Genéricas ---
 
 def criar_faixas(df: pd.DataFrame, coluna: str, bins: list, labels: list, nome_coluna_nova: str) -> pd.DataFrame:
     df[nome_coluna_nova] = pd.cut(df[coluna], bins=bins, labels=labels, right=False, include_lowest=True)
     return df
 
+
 # --- Função de Evasão Genérica ---
 
-def calcular_taxa_evasao(df: pd.DataFrame, coluna_agrupadora: str, coluna_evasao: str='FORMA_EVASAO_PADRONIZADA') -> pd.DataFrame:
+def calcular_taxa_evasao(df: pd.DataFrame, coluna_agrupadora: str,
+                         coluna_evasao: str = 'FORMA_EVASAO_PADRONIZADA') -> pd.DataFrame:
     taxa_evasao = (
         df.groupby(coluna_agrupadora)
         .apply(lambda x: (x[coluna_evasao].str.lower().isin(['evasão', 'evadido', 'evasao']).mean()) * 100)
@@ -134,25 +142,19 @@ def calcular_taxa_evasao(df: pd.DataFrame, coluna_agrupadora: str, coluna_evasao
     )
     return taxa_evasao.sort_values('Taxa de Evasão (%)', ascending=False)
 
+
 # --- Função padronizada para categorização da evasão ---
 
 def categorizar_evasao(valor: str) -> str:
     valor = str(valor).strip().upper()
-    if valor == "CON":
+    if valor == "Concluiu":
         return "Concluiu"
-    elif valor in ["ABA", "CAN", "DESISTÊNCIA SISU", "DES", "JUB", "TIC"]:
+    elif valor in ["Evasão"]:
         return "Evasão"
-    elif valor == "SEM EVASÃO":
+    elif valor == "Cursando":
         return "Cursando"
-    elif valor in ["FAL", "NÃO IDENTIFICADA"]:
-        return "Outros"
     else:
         return "Outros"
-
-def aplicar_categorizacao_evasao(df: pd.DataFrame, coluna_original='FORMA_EVASAO', coluna_nova='FORMA_EVASAO_PADRONIZADA'):
-    df[coluna_nova] = df[coluna_original].apply(categorizar_evasao)
-    return df
-
 
 def agrupar_ampla_concorrencia(df, coluna='FORMA_INGRESSO_PADRONIZADA'):
     df = df.copy()
@@ -161,3 +163,27 @@ def agrupar_ampla_concorrencia(df, coluna='FORMA_INGRESSO_PADRONIZADA'):
         "Ampla Concorrência": "Ampla Concorrência"
     })
     return df
+
+
+# --- Funções específicas para análise temporal/pandemia ---
+
+def classificar_periodo(row: pd.Series) -> str:
+    ano = row['ANO_INGRESSO']
+    sem = int(row['SEMESTRE_INGRESSO']) if 'SEMESTRE_INGRESSO' in row and pd.notnull(row['SEMESTRE_INGRESSO']) else 1
+    if ano < 2020:
+        return "Pré-pandemia"
+    elif (ano == 2020) or (ano == 2021 and sem <= 2):
+        return "Pandemia/ERE"
+    else:
+        return "Pós-pandemia"
+
+
+def categorizar_ingresso_pandemia(forma: str) -> str:
+    if 'Pré-Cotas' in forma:
+        return 'Pré-Cotas'
+    elif any(k in forma for k in ['escola pública', 'étnico', 'renda']):
+        return 'Cotista'
+    elif any(k in forma for k in ['Ampla Concorrência', 'Vestibular', 'ENEM']):
+        return 'Ampla Concorrência'
+    else:
+        return 'Outros'

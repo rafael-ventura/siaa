@@ -77,7 +77,6 @@ class ModuloLocalizacao:
             "da luz": ("da luz", "nova iguacu", "rj"),
             "edson passos": ("edson passos", "mesquita", "rj"),
             "farrula": ("farrula", "sao joao de meriti", "rj"),
-            "glaucia": ("glaucia", "belford roxo", "rj"),
             "ibes": ("ibes", "vila velha", "es"),
             "itaipu": ("itaipu", "niteroi", "rj"),
             "itapeba": ("itapeba", "marica", "rj"),
@@ -170,11 +169,6 @@ class ModuloLocalizacao:
             "mirandopolis" : ("mirandópolis", "quatis", "rj"),
             "plante cafe" : ("plante café", "miguel pereira", "rj"),
             "parque vitoria" : ("parque vitória", "duque de caxias", "rj"),
-
-
-
-
-
         }
 
         def normalizar(texto):

@@ -2,17 +2,7 @@ import streamlit as st
 import pandas as pd
 import re
 
-# --- Auxiliares ---
-
-def formatar_sexo(df):
-    if 'SEXO' in df.columns:
-        df = df.copy()
-        mapeamento = {'M': 'Masculino', 'F': 'Feminino'}
-        df['SEXO_FORMATADO'] = df['SEXO'].map(mapeamento)
-    return df
-
-def safe_mode(s):
-    return s.dropna().mode()[0] if not s.dropna().empty else "Não informado"
+from modules.web.graficos.utils import minutos_para_hrmin, tempo_em_minutos, safe_mode, formatar_sexo
 
 def categorizar_ingresso(forma):
     if any(k in forma for k in ['escola pública', 'étnico', 'renda', 'Deficiência']):
@@ -21,25 +11,6 @@ def categorizar_ingresso(forma):
         return 'Ampla Concorrência'
     else:
         return 'Outros'
-
-def tempo_em_minutos(t):
-    if pd.isna(t): return None
-    t = str(t)
-    h = re.search(r'(\d+)\s*h', t)
-    m = re.search(r'(\d+)\s*min', t)
-    horas = int(h.group(1)) if h else 0
-    mins = int(m.group(1)) if m else 0
-    return horas * 60 + mins
-
-def minutos_para_hrmin(m):
-    if pd.isna(m): return "Não informado"
-    m = int(m)
-    horas = m // 60
-    mins = m % 60
-    if horas > 0:
-        return f"{horas}h {mins}min" if mins > 0 else f"{horas}h"
-    else:
-        return f"{mins}min"
 
 # --- Gráfico Perfil do Aluno ---
 def graficos_secao_perfil(df: pd.DataFrame):

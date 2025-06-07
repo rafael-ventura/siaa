@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 
 from modules.web.graficos.utils import calcula_filtragem, exibe_info_filtragem, categorizar_ingresso_detalhado, \
-    agrupar_ampla_concorrencia, aplicar_categorizacao_evasao
+    agrupar_ampla_concorrencia
 
 
 # --- Funções para gráficos ---
@@ -63,12 +63,27 @@ def grafico_cra(df):
 
 def grafico_tempo_medio(df):
     st.subheader("Tempo Médio de Curso (Cotistas vs. Não Cotistas)")
-    concluintes = df[df['FORMA_EVASAO_PADRONIZADA'] == 'Concluiu']
 
-    concluintes = agrupar_ampla_concorrencia(concluintes)  # Agrupamento aqui
+    # Filtra apenas alunos que concluíram
+    concluintes = df[df['FORMA_EVASAO_PADRONIZADA'] == 'Concluiu'].copy()
 
-    tempo_medio = concluintes.groupby('FORMA_INGRESSO_PADRONIZADA')['TEMPO_CURSO'].mean().reset_index().sort_values(
-        by='TEMPO_CURSO', ascending=False)
+    if concluintes.empty:
+        st.warning("⚠️ Nenhum aluno concluinte encontrado nos dados.")
+        return
+
+    concluintes = agrupar_ampla_concorrencia(concluintes)
+
+    tempo_medio = (
+        concluintes.groupby('FORMA_INGRESSO_PADRONIZADA')['TEMPO_CURSO']
+        .mean()
+        .reset_index()
+        .sort_values(by='TEMPO_CURSO', ascending=False)
+    )
+
+    if tempo_medio.empty:
+        st.warning("⚠️ Dados insuficientes para calcular o tempo médio de curso.")
+        return
+
     fig = px.bar(
         tempo_medio,
         x='FORMA_INGRESSO_PADRONIZADA', y='TEMPO_CURSO',
@@ -80,6 +95,7 @@ def grafico_tempo_medio(df):
     fig.update_xaxes(showticklabels=False)
     fig.update_layout(bargap=0.05)
     st.plotly_chart(fig)
+
     st.markdown("**📋 Tabela Resumo: Tempo Médio de Curso por Categoria**")
     st.dataframe(tempo_medio.style.format({'TEMPO_CURSO': '{:.2f}'}), use_container_width=True)
 
@@ -125,8 +141,6 @@ def graficos_secao_ingresso(df: pd.DataFrame):
 
     # Formatação ingresso e evasão padronizada
     df_filtrado['FORMA_INGRESSO_SIMPLIFICADO'] = df_filtrado.apply(categorizar_ingresso_detalhado, axis=1)
-    df_filtrado = aplicar_categorizacao_evasao(df_filtrado)
-
     grafico_evolucao(df_filtrado)
     graficos_pizza(df_filtrado)
     grafico_cra(df_filtrado)

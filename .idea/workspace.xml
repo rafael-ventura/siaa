@@ -7,13 +7,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="refatoracao das secoes">
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="refatoracao das secoes [2]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/classificacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/classificacao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/localizacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/localizacao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/controllers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/service/export_pdf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/controllers/app_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/pages/app_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_pandemia.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_pandemia.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/pages/dashboard_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/pages/dashboard_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,18 +49,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "rafael-ventura"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;rafael-ventura&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/rafael-ventura/siaa.git",
-    "accountId": "4d8739d9-bdb8-44a9-909e-6b057cab507b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/rafael-ventura/siaa.git&quot;,
+    &quot;accountId&quot;: &quot;4d8739d9-bdb8-44a9-909e-6b057cab507b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -87,6 +95,8 @@
       <recent name="R:\Dev\dashboard-bsi\dashboard\modules\web\graficos" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="R:\Dev\siaa\modules\web\service" />
+      <recent name="R:\Dev\siaa\modules\web\pages" />
       <recent name="R:\Dev\dashboard-bsi\dashboard\modules\web\controllers" />
       <recent name="R:\Dev\dashboard-bsi\dashboard\modules\web\views" />
       <recent name="R:\Dev\dashboard-bsi\dashboard\modules\web\service" />
@@ -150,7 +160,8 @@
       <workItem from="1749077833621" duration="7993000" />
       <workItem from="1749165460748" duration="1712000" />
       <workItem from="1749168144370" duration="7006000" />
-      <workItem from="1749302915949" duration="7128000" />
+      <workItem from="1749302915949" duration="11180000" />
+      <workItem from="1749329847855" duration="3257000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes na padronização da forma_ingresso.py">
       <option name="closed" value="true" />
@@ -232,7 +243,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749306677299</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="refatoracao das secoes [2]">
+      <option name="closed" value="true" />
+      <created>1749326913442</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749326913442</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,7 +280,8 @@
     <MESSAGE value="secao distancia" />
     <MESSAGE value="first commit" />
     <MESSAGE value="refatoracao das secoes" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatoracao das secoes" />
+    <MESSAGE value="refatoracao das secoes [2]" />
+    <option name="LAST_COMMIT_MESSAGE" value="refatoracao das secoes [2]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

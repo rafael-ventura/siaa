@@ -5,7 +5,7 @@ import pandas as pd
 from modules.web.graficos.utils import (
     calcula_filtragem,
     exibe_info_filtragem,
-    formatar_sexo, aplicar_categorizacao_evasao
+    formatar_sexo
 )
 
 # --- Gráficos ---
@@ -89,7 +89,6 @@ def graficos_secao_genero(df: pd.DataFrame):
 
     # Formatação do sexo e evasão padronizada
     df_filtrado = formatar_sexo(df_filtrado)
-    df_filtrado = aplicar_categorizacao_evasao(df_filtrado)
 
     grafico_distribuicao_sexo_por_ano(df_filtrado)
     grafico_cra_por_sexo(df_filtrado)
