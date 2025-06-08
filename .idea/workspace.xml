@@ -7,11 +7,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="refatoracao das secoes [4]">
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="refatoracao das secoes [5]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/dados/zonas_geograficas.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/dados/zonas_geograficas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/classificacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/classificacao.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/limpeza/distancia.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/distancia.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/forma_evasao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/forma_evasao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/forma_ingresso.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/forma_ingresso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/leitura.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/leitura.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/localizacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/localizacao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/numerico.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/numerico.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/texto.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/texto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/validacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/validacao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/validadorPlanilha.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/validadorPlanilha.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_pandemia.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_pandemia.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/pages/app_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/pages/app_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/pages/inicio_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/pages/inicio_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/service/download_exemplo.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/service/download_exemplo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/service/upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/service/upload.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +172,7 @@
       <workItem from="1749302915949" duration="11180000" />
       <workItem from="1749329847855" duration="14839000" />
       <workItem from="1749351892135" duration="797000" />
-      <workItem from="1749406403359" duration="1425000" />
+      <workItem from="1749406403359" duration="5696000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes na padronização da forma_ingresso.py">
       <option name="closed" value="true" />
@@ -259,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749346734096</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="refatoracao das secoes [5]">
+      <option name="closed" value="true" />
+      <created>1749408010685</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749408010685</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,7 +318,8 @@
     <MESSAGE value="refatoracao das secoes [2]" />
     <MESSAGE value="refatoracao das secoes [3]" />
     <MESSAGE value="refatoracao das secoes [4]" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatoracao das secoes [4]" />
+    <MESSAGE value="refatoracao das secoes [5]" />
+    <option name="LAST_COMMIT_MESSAGE" value="refatoracao das secoes [5]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

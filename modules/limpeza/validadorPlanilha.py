@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 
+
 class ValidadorPlanilha:
     # Campos obrigatórios mínimos para análise funcionar
     COLUNAS_OBRIGATORIAS = [

@@ -37,8 +37,10 @@ def exibir_grafico_cra_periodo_continuo(df):
         .reset_index(name='CRA Médio')
         .sort_values(by='PERIODO_CONTINUO')
     )
-    fig = px.line(cra_periodo, x='PERIODO_CONTINUO', y='CRA Médio', title='Evolução do CRA Médio por Período de Ingresso', markers=True)
-    fig.add_vrect(x0="2020.1", x1="2021.2", fillcolor="red", opacity=0.15, line_width=0, annotation_text="Pandemia/ERE", annotation_position="top left")
+    fig = px.line(cra_periodo, x='PERIODO_CONTINUO', y='CRA Médio',
+                  title='Evolução do CRA Médio por Período de Ingresso', markers=True)
+    fig.add_vrect(x0="2020.1", x1="2021.2", fillcolor="red", opacity=0.15, line_width=0, annotation_text="Pandemia/ERE",
+                  annotation_position="top left")
     ticks = [p for p in cra_periodo['PERIODO_CONTINUO'] if p.endswith('.1')]
     fig.update_xaxes(tickvals=ticks, ticktext=[t.replace('.1', '') for t in ticks])
     st.plotly_chart(fig, use_container_width=True)
@@ -48,8 +50,10 @@ def exibir_grafico_evasao_periodo(df):
     st.subheader("Taxa de Evasão por Período de Ingresso")
     evasao = df.groupby('PERIODO_CONTINUO')['EVADIDO'].mean().reset_index(name='Taxa de Evasão (%)')
     evasao['Taxa de Evasão (%)'] *= 100
-    fig = px.line(evasao, x='PERIODO_CONTINUO', y='Taxa de Evasão (%)', title='Evolução da Taxa de Evasão por Período de Ingresso', markers=True)
-    fig.add_vrect(x0="2020.1", x1="2021.2", fillcolor="red", opacity=0.15, line_width=0, annotation_text="Pandemia/ERE", annotation_position="top left")
+    fig = px.line(evasao, x='PERIODO_CONTINUO', y='Taxa de Evasão (%)',
+                  title='Evolução da Taxa de Evasão por Período de Ingresso', markers=True)
+    fig.add_vrect(x0="2020.1", x1="2021.2", fillcolor="red", opacity=0.15, line_width=0, annotation_text="Pandemia/ERE",
+                  annotation_position="top left")
     ticks = [p for p in evasao['PERIODO_CONTINUO'] if p.endswith('.1')]
     fig.update_xaxes(tickvals=ticks, ticktext=[t.replace('.1', '') for t in ticks])
     st.plotly_chart(fig, use_container_width=True)
@@ -59,31 +63,37 @@ def exibir_grafico_cra_periodo_pandemico(df):
     st.subheader("🎓 CRA médio antes, durante e após a pandemia")
     cra = df[df['CRA'] <= 10].groupby('PERIODO_PANDEMIA')['CRA'].mean().reset_index(name='CRA Médio')
     st.dataframe(cra, use_container_width=True)
-    fig = px.bar(cra, x='PERIODO_PANDEMIA', y='CRA Médio', color='PERIODO_PANDEMIA', title="CRA Médio por Período Pandêmico")
+    fig = px.bar(cra, x='PERIODO_PANDEMIA', y='CRA Médio', color='PERIODO_PANDEMIA',
+                 title="CRA Médio por Período Pandêmico")
     st.plotly_chart(fig, use_container_width=True)
 
 
 def exibir_grafico_evasao_forma_periodo(df):
     st.subheader("🚦 Evasão por Forma de Ingresso e Período Pandêmico")
-    evasao = df.groupby(['PERIODO_PANDEMIA', 'Categoria_Ingresso'])['EVADIDO'].mean().reset_index(name='Taxa de Evasão (%)')
+    evasao = df.groupby(['PERIODO_PANDEMIA', 'Categoria_Ingresso'])['EVADIDO'].mean().reset_index(
+        name='Taxa de Evasão (%)')
     evasao['Taxa de Evasão (%)'] *= 100
     ordem = ["Pré-pandemia", "Pandemia/ERE", "Pós-pandemia"]
     tipo_categ = CategoricalDtype(categories=ordem, ordered=True)
     evasao['PERIODO_PANDEMIA'] = evasao['PERIODO_PANDEMIA'].astype(tipo_categ)
     evasao = evasao.sort_values(['Categoria_Ingresso', 'PERIODO_PANDEMIA'])
-    fig = px.bar(evasao, x='Categoria_Ingresso', y='Taxa de Evasão (%)', color='PERIODO_PANDEMIA', barmode='group', category_orders={'PERIODO_PANDEMIA': ordem}, title="Taxa de Evasão por Forma de Ingresso em cada Período")
+    fig = px.bar(evasao, x='Categoria_Ingresso', y='Taxa de Evasão (%)', color='PERIODO_PANDEMIA', barmode='group',
+                 category_orders={'PERIODO_PANDEMIA': ordem},
+                 title="Taxa de Evasão por Forma de Ingresso em cada Período")
     st.plotly_chart(fig, use_container_width=True)
     st.dataframe(evasao, use_container_width=True)
 
 
 def exibir_grafico_cra_forma_periodo(df):
     st.subheader("🎯 CRA Médio por Forma de Ingresso e Período")
-    cra = df[df['CRA'] <= 10].groupby(['PERIODO_PANDEMIA', 'Categoria_Ingresso'])['CRA'].mean().reset_index(name='CRA Médio')
+    cra = df[df['CRA'] <= 10].groupby(['PERIODO_PANDEMIA', 'Categoria_Ingresso'])['CRA'].mean().reset_index(
+        name='CRA Médio')
     ordem = ["Pré-pandemia", "Pandemia/ERE", "Pós-pandemia"]
     tipo_categ = CategoricalDtype(categories=ordem, ordered=True)
     cra['PERIODO_PANDEMIA'] = cra['PERIODO_PANDEMIA'].astype(tipo_categ)
     cra = cra.sort_values(['Categoria_Ingresso', 'PERIODO_PANDEMIA'])
-    fig = px.bar(cra, x='Categoria_Ingresso', y='CRA Médio', color='PERIODO_PANDEMIA', barmode='group', category_orders={'PERIODO_PANDEMIA': ordem}, title="CRA Médio por Forma de Ingresso e Período")
+    fig = px.bar(cra, x='Categoria_Ingresso', y='CRA Médio', color='PERIODO_PANDEMIA', barmode='group',
+                 category_orders={'PERIODO_PANDEMIA': ordem}, title="CRA Médio por Forma de Ingresso e Período")
     st.plotly_chart(fig, use_container_width=True)
     st.dataframe(cra, use_container_width=True)
     st.info("> **Observação:** O período de pandemia/ERE corresponde de 2020.1 até 2021.2.")

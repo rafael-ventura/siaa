@@ -1,8 +1,9 @@
-import pandas as pd
-import numpy as np
 import re
-from unidecode import unidecode
+
+import numpy as np
+import pandas as pd
 import streamlit as st
+from unidecode import unidecode
 
 
 # --- Funções Gerais de Texto ---
@@ -19,10 +20,11 @@ def tempo_em_minutos(t):
     t = str(t).lower().strip()
     # Captura horas e minutos, seja qual for o formato
     horas = re.search(r'(\d+)\s*(h|hora)', t)
-    mins  = re.search(r'(\d+)\s*(m|min|minuto)', t)
+    mins = re.search(r'(\d+)\s*(m|min|minuto)', t)
     h = int(horas.group(1)) if horas else 0
     m = int(mins.group(1)) if mins else 0
     return h * 60 + m
+
 
 def minutos_para_hrmin(m: float) -> str:
     if pd.isna(m): return "Não informado"
@@ -157,6 +159,7 @@ def categorizar_evasao(valor: str) -> str:
     else:
         return "Outros"
 
+
 def agrupar_ampla_concorrencia(df, coluna='FORMA_INGRESSO_PADRONIZADA'):
     df = df.copy()
     df[coluna] = df[coluna].replace({
@@ -188,3 +191,47 @@ def categorizar_ingresso_pandemia(forma: str) -> str:
         return 'Ampla Concorrência'
     else:
         return 'Outros'
+
+
+def calcular_ultimo_periodo_cursado(df,
+                                    ano_ingresso_col='ANO_INGRESSO',
+                                    sem_ingresso_col='SEMESTRE_INGRESSO',
+                                    ano_evasao_col='ANO_EVASAO',
+                                    sem_evasao_col='SEMESTRE_EVASAO',
+                                    col_saida='ULTIMO_PERIODO_CURSADO'):
+    """
+    Calcula quantos períodos (semestres) o aluno cursou desde o ingresso até a evasão/conclusão.
+    Adiciona a coluna 'ULTIMO_PERIODO_CURSADO' ao DataFrame.
+    """
+
+    def calcular_periodo(row):
+        try:
+            ano_i = int(row[ano_ingresso_col])
+            sem_i = int(row[sem_ingresso_col])
+            ano_f = int(row[ano_evasao_col])
+            sem_f = int(row[sem_evasao_col])
+            # O primeiro semestre cursado é período 1
+            return (ano_f - ano_i) * 2 + (sem_f - sem_i) + 1
+        except Exception:
+            return np.nan
+
+    df[col_saida] = df.apply(calcular_periodo, axis=1)
+    return df
+
+
+def faixa_periodo(periodo):
+    if pd.isna(periodo):
+        return 'Não informado'
+    periodo = int(periodo)
+    if periodo <= 2:
+        return "1º-2º período"
+    elif periodo <= 4:
+        return "3º-4º período"
+    elif periodo <= 6:
+        return "5º-6º período"
+    elif periodo <= 8:
+        return "7º-8º período"
+    elif periodo <= 10:
+        return "9º-10º período"
+    else:
+        return "Acima do 10º"

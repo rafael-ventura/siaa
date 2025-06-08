@@ -5,6 +5,7 @@ import pandas as pd
 import googlemaps
 from datetime import datetime, timedelta
 
+
 class ModuloDistanciaGoogle:
     BASE_DIR = os.path.dirname(__file__)
     ARQUIVO_DISTANCIAS = os.path.join(BASE_DIR, "../dados/dfDistancias_google.csv")
@@ -18,7 +19,9 @@ class ModuloDistanciaGoogle:
     def carregar_cache_distancias() -> dict:
         caminho = ModuloDistanciaGoogle.ARQUIVO_DISTANCIAS
         if not os.path.exists(caminho) or os.path.getsize(caminho) == 0:
-            pd.DataFrame(columns=["BAIRRO", "CIDADE", "ESTADO", "MODO", "DISTANCIA_KM", "DURACAO", "SAIDA_PARA_18H"]).to_csv(caminho, index=False)
+            pd.DataFrame(
+                columns=["BAIRRO", "CIDADE", "ESTADO", "MODO", "DISTANCIA_KM", "DURACAO", "SAIDA_PARA_18H"]).to_csv(
+                caminho, index=False)
             return {}
         df = pd.read_csv(caminho)
         return {
@@ -54,7 +57,8 @@ class ModuloDistanciaGoogle:
         destino = ModuloDistanciaGoogle.DESTINO_UNIRIO
 
         hoje = datetime.now()
-        chegada_dt = hoje.replace(hour=int(chegada.split(":")[0]), minute=int(chegada.split(":")[1]), second=0, microsecond=0)
+        chegada_dt = hoje.replace(hour=int(chegada.split(":")[0]), minute=int(chegada.split(":")[1]), second=0,
+                                  microsecond=0)
         if chegada_dt < hoje:
             chegada_dt += timedelta(days=1)
 

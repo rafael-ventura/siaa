@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 class ModuloClassificacao:
     @staticmethod
     def classificar_idade(df: pd.DataFrame) -> pd.DataFrame:

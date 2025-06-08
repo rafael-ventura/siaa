@@ -2,6 +2,7 @@ import pandas as pd
 import unidecode
 import re
 
+
 class ModuloFormaIngresso:
     MAPEAMENTO_REGEX = {
         "Ampla Concorrência": [

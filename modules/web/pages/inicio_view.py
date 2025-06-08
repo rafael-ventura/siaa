@@ -3,6 +3,7 @@ import streamlit as st
 from modules.limpeza.validadorPlanilha import ValidadorPlanilha
 from modules.web.explicacoes.base_explicacoes import get_explicacao_coluna
 
+
 def render_inicio():
     st.title("📊 Ferramenta de Análise Acadêmica - BSI/UNIRIO")
 

@@ -8,6 +8,7 @@ from modules.web.graficos.utils import (
     formatar_sexo
 )
 
+
 # --- Gráficos ---
 
 def grafico_distribuicao_sexo_por_ano(df):

@@ -1,7 +1,9 @@
 import unidecode
 
+
 def normalizar_lista(l):
     return [unidecode.unidecode(x).strip().lower() for x in l]
+
 
 # Listas de zonas geográficas
 zona_norte = ['Abolição', 'Acari', 'Água Santa', 'Alto da Boa Vista', 'Anchieta', 'Andaraí', 'Bancários',
@@ -36,7 +38,8 @@ baixada_fluminense = ['Nova Iguaçu', 'Duque de Caxias', 'Belford Roxo', 'São J
                       'Mesquita', 'Magé', 'Queimados', 'Itaguaí', 'Japeri', 'Guapimirim', 'Paracambi', 'Seropédica',
                       'Tanguá']
 bairros_centro = ['Gamboa', 'Centro do Rio', 'Centro', 'Lapa', 'Saúde', 'Cidade Nova', 'Santa Teresa', 'Estácio',
-                  'Catumbi', 'Santo Cristo', 'Paquetá', 'Glória', 'Praça da República', 'Praça Mauá', 'Bairro de Fátima']
+                  'Catumbi', 'Santo Cristo', 'Paquetá', 'Glória', 'Praça da República', 'Praça Mauá',
+                  'Bairro de Fátima']
 
 regiao_volta_redonda = ['Valença', 'Vassouras', 'Miguel Pereira', 'Paty do Alferes', 'Rio das Flores', 'Barra do Piraí',
                         'Piraí', 'Pinheiral', 'Volta Redonda', 'Barra Mansa', 'Resende', 'Itatiaia', 'Quatis',
@@ -47,7 +50,8 @@ niteroi_sao_goncalo = ['Niterói', 'Icaraí', 'Santa Rosa', 'Fonseca', 'Barreto'
                        'São Domingos', 'Baldeador', 'Caramujo', 'Engenhoca', 'Santana', 'Pé Pequeno',
                        'Largo da Batalha', 'Matapaca', 'Ponta d\'Areia', 'São Lourenço', 'Sapê', 'Piratininga',
                        'Itacoatiara', 'Itaipu', 'Camboinhas', 'Maravista', 'Maria Paula', 'Santo Antônio',
-                       'São Gonçalo', 'Alcântara', 'Mutondo', 'Neves', 'Porto da Pedra', 'Trindade', 'Zé Garoto', 'Boaçu',
+                       'São Gonçalo', 'Alcântara', 'Mutondo', 'Neves', 'Porto da Pedra', 'Trindade', 'Zé Garoto',
+                       'Boaçu',
                        'Itaboraí', 'Manilha']
 
 regiao_serrana = ['Bom Jardim', 'Cantagalo', 'Carmo', 'Cordeiro', 'Duas Barras', 'Macuco', 'Nova Friburgo',
@@ -57,15 +61,14 @@ regiao_serrana = ['Bom Jardim', 'Cantagalo', 'Carmo', 'Cordeiro', 'Duas Barras',
 
 regiao_campos = ['Campos dos Goytacazes', 'Cardoso Moreira', 'São Fidélis', 'São Francisco de Itabapoana',
                  'Cardoso Moreira', 'São João da Barra', 'Bom Jesus do Itabapoana', 'Itaperuna', 'Laje do Muriaé',
-                 'Natividade', 'Porciúncula', 'Sao Jose de Ubá', 'Varre-Sai', 'Cambuci', 'Italva', 'Itaocara', 'Miracema', 'Santo Antônio de Pádua']
+                 'Natividade', 'Porciúncula', 'Sao Jose de Ubá', 'Varre-Sai', 'Cambuci', 'Italva', 'Itaocara',
+                 'Miracema', 'Santo Antônio de Pádua']
 
 regiao_dos_lagos = ['Cabo Frio', 'Arraial do Cabo', 'Araruama', 'Saquarema', 'Iguaba Grande',
                     'São Pedro da Aldeia', 'Maricá', 'Rio das Ostras', 'Armacao dos Buzios', 'Casimiro de Abreu',
                     'Conceição de Macabu', 'Quissamã', 'Macaé', 'Carapebus']
 
 regiao_costa_verde = ['Angra dos Reis', 'Paraty', 'Mangaratiba', 'Itaguaí']
-
-
 
 zona_oeste = normalizar_lista(zona_oeste)
 zona_norte = normalizar_lista(zona_norte)

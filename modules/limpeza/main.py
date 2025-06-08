@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 from .distancia import ModuloDistanciaGoogle
 from .forma_evasao import ModuloFormaEvasao
@@ -28,8 +29,10 @@ class PipelineFormatacao:
         df = log_etapa(ModuloValidacao.preencher_valores_nulos(df), "Após preencher nulos")
         df = log_etapa(ModuloTemporal.converter_datas(df), "Após converter datas")
         df = log_etapa(ModuloTemporal.formatar_periodos(df), "Após formatar períodos")
-        df = log_etapa(ModuloTexto.normalizar_e_corrigir(df, "BAIRRO", correcoes_bairros), "Após normalizar/corrigir BAIRRO")
-        df = log_etapa(ModuloTexto.normalizar_e_corrigir(df, "CIDADE", correcoes_cidades), "Após normalizar/corrigir CIDADE")
+        df = log_etapa(ModuloTexto.normalizar_e_corrigir(df, "BAIRRO", correcoes_bairros),
+                       "Após normalizar/corrigir BAIRRO")
+        df = log_etapa(ModuloTexto.normalizar_e_corrigir(df, "CIDADE", correcoes_cidades),
+                       "Após normalizar/corrigir CIDADE")
         df = log_etapa(ModuloLocalizacao.corrigir_enderecos_especificos(df), "Após corrigir endereços específicos")
         df = log_etapa(ModuloLocalizacao.padronizar_bairros_cidades(df), "Após padronizar bairros e cidades")
         df = log_etapa(ModuloLocalizacao.adicionar_cidade_estado(df), "Após adicionar estado")
@@ -42,4 +45,3 @@ class PipelineFormatacao:
         df = log_etapa(ModuloFormaEvasao.padronizar_forma_evasao(df), "Após padronizar forma evasão")
         df = log_etapa(ModuloDistanciaGoogle.adicionar_distancia_urca(df, API_KEY), "Após calcular distância Google")
         return df
-

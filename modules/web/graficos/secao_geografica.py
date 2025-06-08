@@ -11,13 +11,16 @@ from modules.web.graficos.utils import (
     calcular_taxa_evasao, tempo_em_minutos
 )
 
+
 # ======================== FUNÇÕES DE GRÁFICOS =====================
 
 def grafico_bairros(df):
     st.subheader("🗺️ Onde estão os alunos?")
-    bairros_mais = df.groupby(['BAIRRO', 'ZONA_GEOGRAFICA']).size().reset_index(name='Alunos').sort_values(by='Alunos', ascending=False)
+    bairros_mais = df.groupby(['BAIRRO', 'ZONA_GEOGRAFICA']).size().reset_index(name='Alunos').sort_values(by='Alunos',
+                                                                                                           ascending=False)
     cidades_mais = df.groupby('CIDADE').size().reset_index(name='Alunos').sort_values(by='Alunos', ascending=False)
-    zona_mais = df.groupby('ZONA_GEOGRAFICA').size().reset_index(name='Alunos').sort_values(by='Alunos', ascending=False)
+    zona_mais = df.groupby('ZONA_GEOGRAFICA').size().reset_index(name='Alunos').sort_values(by='Alunos',
+                                                                                            ascending=False)
 
     st.markdown("**Top bairros com mais alunos:**")
     st.dataframe(bairros_mais.head(10), use_container_width=True)
@@ -30,6 +33,7 @@ def grafico_bairros(df):
     st.plotly_chart(fig_zona, use_container_width=True)
     return zona_mais
 
+
 def grafico_evasao_zona(df, zonas_robustas):
     st.subheader("🚨 Estudantes de quais zonas têm maiores taxas de evasão?")
     taxa_evasao = calcular_taxa_evasao(df[df['ZONA_GEOGRAFICA'].isin(zonas_robustas)], 'ZONA_GEOGRAFICA')
@@ -37,13 +41,16 @@ def grafico_evasao_zona(df, zonas_robustas):
     fig = px.bar(taxa_evasao, x='ZONA_GEOGRAFICA', y='Taxa de Evasão (%)', title='Taxa de Evasão por Zona Geográfica')
     st.plotly_chart(fig, use_container_width=True)
 
+
 def grafico_cra_zona(df, zonas_robustas):
     st.subheader("🎓 Diferença no perfil de CRA por zona geográfica")
     df_filtrado = df[df['ZONA_GEOGRAFICA'].isin(zonas_robustas)]
-    cra_zona = df_filtrado.groupby('ZONA_GEOGRAFICA')['CRA'].mean().reset_index(name='CRA Médio').sort_values(by='CRA Médio', ascending=False)
+    cra_zona = df_filtrado.groupby('ZONA_GEOGRAFICA')['CRA'].mean().reset_index(name='CRA Médio').sort_values(
+        by='CRA Médio', ascending=False)
     st.dataframe(cra_zona, use_container_width=True)
     fig = px.bar(cra_zona, x='ZONA_GEOGRAFICA', y='CRA Médio', title='CRA Médio por Zona Geográfica')
     st.plotly_chart(fig, use_container_width=True)
+
 
 def grafico_mapa_rio(df):
     st.subheader("🗺️ Mapa: Distribuição de Alunos por Bairro (Município do Rio de Janeiro)")
@@ -69,11 +76,12 @@ def grafico_mapa_rio(df):
         color_discrete_sequence=px.colors.sequential.YlOrRd,
         title="Distribuição de Alunos por Bairro - RJ"
     )
-    fig.update_layout(margin={"r":0,"t":30,"l":0,"b":0}, height=550)
+    fig.update_layout(margin={"r": 0, "t": 30, "l": 0, "b": 0}, height=550)
     st.plotly_chart(fig, use_container_width=True)
 
     fora_rio = len(df) - len(df_rio)
     st.warning(f"**{fora_rio} alunos não são do município do Rio e não aparecem no mapa.**")
+
 
 def grafico_evasao_distancia(df):
     st.subheader("🚨 Relação entre Evasão e Distância até a UNIRIO")
@@ -108,11 +116,13 @@ def grafico_evasao_distancia(df):
         stat, pvalue = mannwhitneyu(evadidos, nao_evadidos, alternative='two-sided')
         st.markdown(f"**Teste Mann-Whitney:** U = `{stat:.2f}`, p-valor = `{pvalue:.3g}`")
         if pvalue < 0.05:
-            st.success("Diferença estatisticamente significativa na distância entre evadidos e não evadidos (p < 0.05).")
+            st.success(
+                "Diferença estatisticamente significativa na distância entre evadidos e não evadidos (p < 0.05).")
         else:
             st.info("Não há diferença estatisticamente significativa na distância.")
     else:
         st.info("Não há dados suficientes para o teste de hipótese.")
+
 
 def grafico_proporcao_evasao_distancia(df):
     st.subheader("📊 Taxa de Evasão por Faixa de Distância")
@@ -137,6 +147,7 @@ def grafico_proporcao_evasao_distancia(df):
         labels={'Faixa_Distancia': 'Faixa de Distância (km)'}
     )
     st.plotly_chart(fig_faixa, use_container_width=True)
+
 
 def grafico_tempo_deslocamento(df):
     if df.empty or 'TEMPO_DESLOCAMENTO' not in df.columns:
@@ -186,6 +197,7 @@ def grafico_tempo_deslocamento(df):
     )
     st.subheader("🎓 CRA Médio por Faixa de Tempo de Deslocamento (Ônibus)")
     st.dataframe(cra_tempo, use_container_width=True)
+
 
 # ======================== FUNÇÃO PRINCIPAL =======================
 

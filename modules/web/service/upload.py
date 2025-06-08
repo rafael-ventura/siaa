@@ -2,6 +2,7 @@ import pandas as pd
 from modules.limpeza.validadorPlanilha import ValidadorPlanilha
 from modules.limpeza.main import PipelineFormatacao
 
+
 def load_and_process(arquivo) -> pd.DataFrame:
     """
     Lê o arquivo .xlsx, valida colunas obrigatórias + complementares

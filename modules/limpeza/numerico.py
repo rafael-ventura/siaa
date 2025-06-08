@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 class ModuloNumerico:
     COLUNAS_NUMERICAS = ["CRA"]
 

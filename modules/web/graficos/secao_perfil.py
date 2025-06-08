@@ -4,13 +4,15 @@ import re
 
 from modules.web.graficos.utils import minutos_para_hrmin, tempo_em_minutos, safe_mode, formatar_sexo
 
+
 def categorizar_ingresso(forma):
     if any(k in forma for k in ['escola pública', 'étnico', 'renda', 'Deficiência']):
         return 'Cotista'
-    elif any(k in forma for k in ['Pré-Cotas','Ampla Concorrência', 'Vestibular', 'ENEM']):
+    elif any(k in forma for k in ['Pré-Cotas', 'Ampla Concorrência', 'Vestibular', 'ENEM']):
         return 'Ampla Concorrência'
     else:
         return 'Outros'
+
 
 # --- Gráfico Perfil do Aluno ---
 def graficos_secao_perfil(df: pd.DataFrame):
@@ -50,7 +52,8 @@ def graficos_secao_perfil(df: pd.DataFrame):
     df['TEMPO_MINUTOS'] = df['TEMPO_DESLOCAMENTO'].apply(tempo_em_minutos)
     bins_tempo = [0, 30, 60, 90, 120, 1000]
     labels_tempo = ['0-30 min', '31-60 min', '61-90 min', '91-120 min', '120 min+']
-    df['FAIXA_TEMPO_DESLOC'] = pd.cut(df['TEMPO_MINUTOS'], bins=bins_tempo, labels=labels_tempo, right=False, include_lowest=True)
+    df['FAIXA_TEMPO_DESLOC'] = pd.cut(df['TEMPO_MINUTOS'], bins=bins_tempo, labels=labels_tempo, right=False,
+                                      include_lowest=True)
     faixa_tempo_mais_comum = safe_mode(df['FAIXA_TEMPO_DESLOC'])
     tempo_mediano_min = df['TEMPO_MINUTOS'].median()
     tempo_mediano_formatado = minutos_para_hrmin(tempo_mediano_min)
@@ -100,15 +103,19 @@ def graficos_secao_perfil(df: pd.DataFrame):
     st.markdown("**Distribuição por Sexo:**")
     st.dataframe(df['SEXO_FORMATADO'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
     st.markdown("**Distribuição por Faixa de Idade:**")
-    st.dataframe(df['FAIXA_IDADE_INGRESSO'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
+    st.dataframe(
+        df['FAIXA_IDADE_INGRESSO'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
     st.markdown("**Distribuição por Zona Geográfica:**")
-    st.dataframe(df['ZONA_GEOGRAFICA'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
+    st.dataframe(
+        df['ZONA_GEOGRAFICA'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
     st.markdown("**Distribuição por Forma de Ingresso:**")
-    st.dataframe(df['CATEGORIA_INGRESSO'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
+    st.dataframe(
+        df['CATEGORIA_INGRESSO'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
     st.markdown("**Distribuição por Estado Civil:**")
     st.dataframe(df['ESTADO_CIVIL'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
     st.markdown("**Distribuição por Tempo de Deslocamento (faixa):**")
-    st.dataframe(df['FAIXA_TEMPO_DESLOC'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
+    st.dataframe(
+        df['FAIXA_TEMPO_DESLOC'].value_counts(normalize=True).rename("Proporção (%)").mul(100).round(1).to_frame())
 
     # --- Persona textual ---
     st.subheader("Síntese: Quem é o aluno típico do curso?")

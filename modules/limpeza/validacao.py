@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 class ModuloValidacao:
     COLUNAS_REMOVER = ["Seq."]
 

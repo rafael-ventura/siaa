@@ -4,6 +4,7 @@ from modules.web.pages.inicio_view import render_inicio
 from modules.web.pages.dashboard_view import render_dashboard
 from modules.web.service.upload import load_and_process
 
+
 class AppController:
     def __init__(self):
         # inicializa session_state
@@ -20,7 +21,8 @@ class AppController:
         else:
             self._handle_dashboard()
 
-    def _handle_inicio(self):
+    @staticmethod
+    def _handle_inicio():
         render_inicio()
         if st.button("🚀 Carregar e Gerar Dashboard") and st.session_state.get("uploaded_file"):
             try:
@@ -35,10 +37,10 @@ class AppController:
                 st.error("❌ Erro ao processar os dados:")
                 st.exception(e)
 
-    def _handle_dashboard(self):
+    @staticmethod
+    def _handle_dashboard():
         df = st.session_state.df
         if df is not None:
             render_dashboard(df)
         else:
             st.error("❌ Dados não encontrados. Volte e carregue uma planilha.")
-
