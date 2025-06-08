@@ -2,9 +2,11 @@ import geopandas as gpd
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from scipy.stats import mannwhitneyu
 
 from modules.web.graficos.utils import (
-    normaliza_nome, calcula_filtragem, exibe_info_filtragem, criar_faixas, calcular_taxa_evasao
+    normaliza_nome, calcula_filtragem, exibe_info_filtragem, criar_faixas, calcular_taxa_evasao, minutos_para_hrmin,
+    tempo_em_minutos
 )
 
 def grafico_bairros(df):
@@ -69,21 +71,146 @@ def grafico_mapa_rio(df):
     fora_rio = len(df) - len(df_rio)
     st.warning(f"**{fora_rio} alunos não são do município do Rio e não aparecem no mapa.**")
 
+def grafico_proporcao_evasao_distancia(df):
+    st.subheader("📊 Taxa de Evasão por Faixa de Distância")
+    if df.empty or 'DISTANCIA_URCA' not in df.columns:
+        st.warning("Dados insuficientes para análise de distância.")
+        return
+
+    bins = [0, 2, 5, 8, 12, 20, 30, 50, 100, df['DISTANCIA_URCA'].max() + 1]
+    labels = ['0-2km', '3-5km', '6-8km', '9-12km', '13-20km', '21-30km', '31-50km', '51-100km', '100km+']
+    df['Faixa_Distancia'] = pd.cut(df['DISTANCIA_URCA'], bins=bins, labels=labels, right=False, include_lowest=True)
+    faixa_evasao = (
+        df.groupby('Faixa_Distancia')
+        .apply(lambda x: (x['Evadido'] == "Evadido").mean() * 100)
+        .reset_index(name='Taxa de Evasão (%)')
+    )
+    st.dataframe(faixa_evasao, use_container_width=True)
+    fig_faixa = px.bar(
+        faixa_evasao,
+        x='Faixa_Distancia',
+        y='Taxa de Evasão (%)',
+        title='Taxa de Evasão por Faixa de Distância até a UNIRIO',
+        labels={'Faixa_Distancia': 'Faixa de Distância (km)'}
+    )
+    st.plotly_chart(fig_faixa, use_container_width=True)
+
+
+def grafico_evasao_distancia(df):
+    st.subheader("🚨 Relação entre Evasão e Distância até a UNIRIO")
+    if df.empty or 'DISTANCIA_URCA' not in df.columns:
+        st.warning("Dados insuficientes para análise de distância.")
+        return
+
+    # Define evadido/não evadido
+    df['Evadido'] = df['FORMA_EVASAO_PADRONIZADA'].str.lower().isin(
+        ['evasão', 'evadido', 'evasao']).map({True: "Evadido", False: "Não Evadido"})
+    df_box = df.dropna(subset=['DISTANCIA_URCA', 'Evadido'])
+
+    # Médias/medianas
+    media_dist = df_box.groupby('Evadido')['DISTANCIA_URCA'].mean()
+    mediana_dist = df_box.groupby('Evadido')['DISTANCIA_URCA'].median()
+    concluintes = df_box[df_box['FORMA_EVASAO_PADRONIZADA'].str.lower().str.contains('concluiu')]
+    media_concl = concluintes['DISTANCIA_URCA'].mean()
+    mediana_concl = concluintes['DISTANCIA_URCA'].median()
+    st.markdown(f"""
+    - **Média (evadidos):** {media_dist.get('Evadido', float('nan')):.2f} km  
+    - **Mediana (evadidos):** {mediana_dist.get('Evadido', float('nan')):.2f} km  
+    - **Média (não evadidos):** {media_dist.get('Não Evadido', float('nan')):.2f} km  
+    - **Mediana (não evadidos):** {mediana_dist.get('Não Evadido', float('nan')):.2f} km  
+    - **Média (concluíram):** {media_concl:.2f} km  
+    - **Mediana (concluíram):** {mediana_concl:.2f} km  
+    """)
+
+    # Teste Mann-Whitney
+    evadidos = df_box[df_box['Evadido'] == "Evadido"]['DISTANCIA_URCA']
+    nao_evadidos = df_box[df_box['Evadido'] == "Não Evadido"]['DISTANCIA_URCA']
+    if len(evadidos) > 0 and len(nao_evadidos) > 0:
+        stat, pvalue = mannwhitneyu(evadidos, nao_evadidos, alternative='two-sided')
+        st.markdown(f"**Teste Mann-Whitney:** U = `{stat:.2f}`, p-valor = `{pvalue:.3g}`")
+        if pvalue < 0.05:
+            st.success("Diferença estatisticamente significativa na distância entre evadidos e não evadidos (p < 0.05).")
+        else:
+            st.info("Não há diferença estatisticamente significativa na distância.")
+    else:
+        st.info("Não há dados suficientes para o teste de hipótese.")
+
+def grafico_tempo_deslocamento(df):
+    if df.empty or 'TEMPO_DESLOCAMENTO' not in df.columns:
+        st.warning("Dados insuficientes para análise de tempo de deslocamento.")
+        return
+
+    # --- Distribuição dos Tempos de Deslocamento (em faixas) ---
+    st.subheader("⏳ Distribuição dos Tempos de Deslocamento por Faixa (Ônibus)")
+    df['TEMPO_MINUTOS'] = df['TEMPO_DESLOCAMENTO'].apply(tempo_em_minutos)
+
+    bins_tempo = [0, 30, 60, 90, 120, df['TEMPO_MINUTOS'].max() + 1]
+    labels_tempo = ['0-30min', '31-60min', '61-90min', '91-120min', '120min+']
+    df['Faixa_Tempo'] = pd.cut(df['TEMPO_MINUTOS'], bins=bins_tempo, labels=labels_tempo, right=False,
+                               include_lowest=True)
+    tempo_faixas = df['Faixa_Tempo'].value_counts().sort_index().reset_index()
+    tempo_faixas.columns = ['Faixa_Tempo', 'Quantidade de Alunos']
+    fig_dist_tempo = px.bar(
+        tempo_faixas,
+        x='Faixa_Tempo',
+        y='Quantidade de Alunos',
+        title='Distribuição dos Tempos de Deslocamento (min) via Transporte Público'
+    )
+    st.plotly_chart(fig_dist_tempo, use_container_width=True)
+
+    # --- Taxa de evasão por faixa de tempo de deslocamento ---
+    faixa_evasao_tempo = (
+        df.groupby('Faixa_Tempo')
+        .apply(lambda x: (x['Evadido'] == "Evadido").mean() * 100)
+        .reset_index(name='Taxa de Evasão (%)')
+    )
+    st.subheader("📊 Taxa de Evasão por Faixa de Tempo de Deslocamento (Ônibus)")
+    st.dataframe(faixa_evasao_tempo, use_container_width=True)
+    fig_faixa_tempo = px.bar(
+        faixa_evasao_tempo,
+        x='Faixa_Tempo',
+        y='Taxa de Evasão (%)',
+        title='Taxa de Evasão por Faixa de Tempo de Deslocamento até a UNIRIO',
+        labels={'Faixa_Tempo': 'Faixa de Tempo (min)'}
+    )
+    st.plotly_chart(fig_faixa_tempo, use_container_width=True)
+
+    # --- CRA médio por faixa de tempo de deslocamento ---
+    cra_tempo = (
+        df.groupby('Faixa_Tempo')['CRA']
+        .mean()
+        .reset_index(name='CRA Médio')
+        .sort_values(by='Faixa_Tempo')
+    )
+    st.subheader("🎓 CRA Médio por Faixa de Tempo de Deslocamento (Ônibus)")
+    st.dataframe(cra_tempo, use_container_width=True)
+
 def graficos_secao_geografica(df: pd.DataFrame):
     st.header("🌍 Análise Sociodemográfica dos Discentes")
-
     condicoes = [
-        lambda d: (~d['BAIRRO'].isin(['', 'nan', 'na', 'desconhecido'])) & (d['BAIRRO'] != 'ufrrj') & (d['BAIRRO'] != 'rio de janeiro'),
+        lambda d: (~d['BAIRRO'].isin(['', 'nan', 'na', 'desconhecido'])) & (d['BAIRRO'] != 'rio de janeiro'),
         lambda d: ~d['CIDADE'].isin(['', 'nan', 'na', 'desconhecido']),
         lambda d: ~d['ESTADO'].isin(['', 'nan', 'na', 'desconhecido']),
-        lambda d: d['DISTANCIA_URCA'].notnull() & ((d['DISTANCIA_URCA'] > 0) | (d['BAIRRO'] == 'urca'))
+        lambda d: (d['ENDERECO'].notnull() & (d['ENDERECO'] != '') & d['ENDERECO'] != 'None'),
     ]
+    # Filtro geral para a seção
     df_filtrado, total_inicial, total_final, removidos = calcula_filtragem(df, condicoes)
     exibe_info_filtragem(total_inicial, total_final, removidos)
 
+    st.dataframe(df_filtrado, use_container_width=True)
     zonas_df = grafico_bairros(df_filtrado)
     zonas_validas = zonas_df[zonas_df['Alunos'] >= 10]['ZONA_GEOGRAFICA']
 
     grafico_evasao_zona(df_filtrado, zonas_validas)
     grafico_cra_zona(df_filtrado, zonas_validas)
     grafico_mapa_rio(df_filtrado)
+
+    st.markdown("---")
+    st.subheader("🔍 Análises considerando apenas alunos com DISTÂNCIA válida")
+    filtro_dist = lambda d: d['DISTANCIA_URCA'].notnull() & (d['DISTANCIA_URCA'] > 0)
+    df_distancia, total_ini_d, total_fin_d, rem_d = calcula_filtragem(df_filtrado, [filtro_dist])
+    exibe_info_filtragem(total_ini_d, total_fin_d, rem_d)
+
+    grafico_evasao_distancia(df_distancia)
+    grafico_proporcao_evasao_distancia(df_distancia)
+    grafico_tempo_deslocamento(df_distancia)

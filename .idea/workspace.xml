@@ -7,21 +7,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="refatoracao das secoes [2]">
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="refatoracao das secoes [3]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/limpeza/classificacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/classificacao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/dados/dfDistancias_google.csv" beforeDir="false" afterPath="$PROJECT_DIR$/modules/dados/dfDistancias_google.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/limpeza/localizacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/localizacao.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/controllers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/service/export_pdf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/controllers/app_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/pages/app_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_genero.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_pandemia.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_pandemia.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_perfil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/graficos/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/web/pages/dashboard_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/pages/dashboard_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/service/export_pdf.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +154,7 @@
       <workItem from="1749165460748" duration="1712000" />
       <workItem from="1749168144370" duration="7006000" />
       <workItem from="1749302915949" duration="11180000" />
-      <workItem from="1749329847855" duration="3257000" />
+      <workItem from="1749329847855" duration="10504000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes na padronização da forma_ingresso.py">
       <option name="closed" value="true" />
@@ -251,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749326913442</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="refatoracao das secoes [3]">
+      <option name="closed" value="true" />
+      <created>1749333842924</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749333842924</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,7 +282,8 @@
     <MESSAGE value="first commit" />
     <MESSAGE value="refatoracao das secoes" />
     <MESSAGE value="refatoracao das secoes [2]" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatoracao das secoes [2]" />
+    <MESSAGE value="refatoracao das secoes [3]" />
+    <option name="LAST_COMMIT_MESSAGE" value="refatoracao das secoes [3]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

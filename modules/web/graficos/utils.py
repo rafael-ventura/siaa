@@ -13,15 +13,16 @@ def normaliza_nome(texto: str) -> str:
 
 # --- Funções de Conversão de Dados ---
 
-def tempo_em_minutos(t: str) -> float:
-    if pd.isna(t): return np.nan
-    t = str(t)
-    horas = re.search(r'(\d+)\s*h', t)
-    mins = re.search(r'(\d+)\s*min', t)
+def tempo_em_minutos(t):
+    if pd.isna(t):
+        return np.nan
+    t = str(t).lower().strip()
+    # Captura horas e minutos, seja qual for o formato
+    horas = re.search(r'(\d+)\s*(h|hora)', t)
+    mins  = re.search(r'(\d+)\s*(m|min|minuto)', t)
     h = int(horas.group(1)) if horas else 0
     m = int(mins.group(1)) if mins else 0
     return h * 60 + m
-
 
 def minutos_para_hrmin(m: float) -> str:
     if pd.isna(m): return "Não informado"

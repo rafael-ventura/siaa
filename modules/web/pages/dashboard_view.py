@@ -5,21 +5,15 @@ from modules.web.graficos.secao_genero import graficos_secao_genero
 from modules.web.graficos.secao_ingresso import graficos_secao_ingresso
 from modules.web.graficos.secao_pandemia import graficos_secao_pandemia
 from modules.web.graficos.secao_perfil import graficos_secao_perfil
-from modules.web.service.export_pdf import exportar_pdf
 
 
 def render_dashboard(df):
     st.title("📊 Dashboard Acadêmico")
-    col1, col2 = st.columns([2, 1])
 
-    with col1:
-        if st.button("⬅️ Voltar para o início"):
-            st.session_state.pagina = "inicio"
-            st.session_state.carregou = False
-            st.rerun()
-
-    with col2:
-        exportar = st.button("⬇️ Exportar relatório em PDF")
+    if st.button("⬅️ Voltar para o início"):
+        st.session_state.pagina = "inicio"
+        st.session_state.carregou = False
+        st.rerun()
 
     st.markdown("---")
 
@@ -31,27 +25,20 @@ def render_dashboard(df):
         " Perfil do Aluno",
     ])
 
-    # Aqui, adaptar as funções de seção para retornar as imagens dos gráficos
-    graficos_imgs = []
     with tabs[0]:
-        graficos_imgs.extend(graficos_secao_ingresso(df))
-    with tabs[1]:
-        graficos_imgs.extend(graficos_secao_genero(df))
-    with tabs[2]:
-        graficos_imgs.extend(graficos_secao_geografica(df))
-    with tabs[3]:
-        graficos_imgs.extend(graficos_secao_pandemia(df))
-    with tabs[4]:
-        graficos_imgs.extend(graficos_secao_perfil(df))
+        graficos_secao_ingresso(df)
 
-    if exportar:
-        if not graficos_imgs:
-            st.warning("Nenhum gráfico encontrado para exportação.")
-        else:
-            buffer = exportar_pdf(graficos_imgs)
-            st.download_button(
-                label="Clique para baixar o PDF",
-                data=buffer.getvalue(),
-                file_name="relatorio_academico.pdf",
-                mime="application/pdf"
-            )
+    # Seção 2: Relações de Gênero
+    with tabs[1]:
+        graficos_secao_genero(df)
+
+    # Seção 3: Impactos Sociodemográficos
+    with tabs[2]:
+        graficos_secao_geografica(df)
+
+    # Seção 4: Impactos da Pandemia
+    with tabs[3]:
+        graficos_secao_pandemia(df)
+
+    with tabs[4]:
+        graficos_secao_perfil(df)

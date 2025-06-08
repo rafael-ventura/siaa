@@ -23,40 +23,34 @@ class ModuloLocalizacao:
         def normalizar(texto):
             return unidecode.unidecode(str(texto)).strip().lower()
 
-        # Zonas que devem usar BAIRRO para classificação
         zonas_bairros = ["zona norte", "zona oeste", "zona sul", "centro"]
-
-        # Monta o dicionário normalizado para bairros dessas zonas
         zonas_bairros_dict = {
             zona: set(normalizar(b) for b in bairros)
             for zona, bairros in ZONAS_GEOGRAFICAS.items()
             if zona in zonas_bairros
         }
-
-        # Monta o dicionário normalizado para cidades das demais zonas
         zonas_cidades_dict = {
-            zona: set(normalizar(c) for c in bairros)  # nas listas dessas zonas, só coloque cidades!
+            zona: set(normalizar(c) for c in bairros)
             for zona, bairros in ZONAS_GEOGRAFICAS.items()
             if zona not in zonas_bairros
         }
 
         def obter_zona(row) -> str:
+            estado = str(row.get("ESTADO", "")).strip().upper()
+            if estado != "RJ":
+                return "Outro Estado"
             bairro_norm = normalizar(row.get('BAIRRO', ''))
             cidade_norm = normalizar(row.get('CIDADE', ''))
-
-            # Tenta primeiro pelos bairros (para zonas que usam bairro)
             for zona, bairros_normalizados in zonas_bairros_dict.items():
                 if bairro_norm in bairros_normalizados:
                     return zona
-
-            # Se não achou, tenta pelas cidades (para zonas que usam cidade)
             for zona, cidades_normalizadas in zonas_cidades_dict.items():
                 if cidade_norm in cidades_normalizadas:
                     return zona
+            # Se for RJ mas não achou bairro/cidade, pode usar um valor explícito
+            return "NAO_IDENTIFICADO_RJ"
 
-            return "outra"
-
-        if "BAIRRO" in df.columns and "CIDADE" in df.columns:
+        if {"BAIRRO", "CIDADE", "ESTADO"}.issubset(df.columns):
             df["ZONA_GEOGRAFICA"] = df.apply(obter_zona, axis=1)
         return df
 
@@ -169,6 +163,12 @@ class ModuloLocalizacao:
             "mirandopolis" : ("mirandópolis", "quatis", "rj"),
             "plante cafe" : ("plante café", "miguel pereira", "rj"),
             "parque vitoria" : ("parque vitória", "duque de caxias", "rj"),
+            "santo amaro" : ("santo amaro", "sao paulo", "sp"),
+            "santo anta'nio" : ("santo antônio", "são paulo", "sp"),
+            "ufrrj" : ("ufrj", "seropedica", "rj"),
+            "village sao roque" : ("village são roque", "miguel pereira", "rj"),
+            "rio de janeiro" : ("praca seca", "rio de janeiro", "rj"),
+            "piquet" : ("centro", "maricá", "rj")
         }
 
         def normalizar(texto):
