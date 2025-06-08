@@ -102,14 +102,6 @@ class ModuloDistanciaGoogle:
                 if chave in cache and cache[chave]["DISTANCIA_KM"] is not None:
                     print(f"[CACHE] {chave} já calculado, pulando.")
                     continue
-                if row["BAIRRO"].lower() == "urca":
-                    print(f"[INFO] Bairro 'Urca' (modo {modo}) – distância = 0km")
-                    cache[chave] = {
-                        "DISTANCIA_KM": 0.0,
-                        "DURACAO": "0 min",
-                        "SAIDA_PARA_18H": "18:00"
-                    }
-                    continue
                 print(f"[CALCULANDO] {row['BAIRRO']}, {row['CIDADE']}, {row['ESTADO']} (modo {modo})...")
                 dist, dur, saida = ModuloDistanciaGoogle.calcular_tempo_e_distancia(
                     row["BAIRRO"], row["CIDADE"], row["ESTADO"], gmaps, modo=modo

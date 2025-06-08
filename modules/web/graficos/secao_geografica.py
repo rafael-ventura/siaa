@@ -1,3 +1,5 @@
+# ============================ IMPORTS ============================
+
 import geopandas as gpd
 import pandas as pd
 import plotly.express as px
@@ -5,9 +7,11 @@ import streamlit as st
 from scipy.stats import mannwhitneyu
 
 from modules.web.graficos.utils import (
-    normaliza_nome, calcula_filtragem, exibe_info_filtragem, criar_faixas, calcular_taxa_evasao, minutos_para_hrmin,
-    tempo_em_minutos
+    normaliza_nome, calcula_filtragem, exibe_info_filtragem, criar_faixas,
+    calcular_taxa_evasao, tempo_em_minutos
 )
+
+# ======================== FUNÇÕES DE GRÁFICOS =====================
 
 def grafico_bairros(df):
     st.subheader("🗺️ Onde estão os alunos?")
@@ -71,31 +75,6 @@ def grafico_mapa_rio(df):
     fora_rio = len(df) - len(df_rio)
     st.warning(f"**{fora_rio} alunos não são do município do Rio e não aparecem no mapa.**")
 
-def grafico_proporcao_evasao_distancia(df):
-    st.subheader("📊 Taxa de Evasão por Faixa de Distância")
-    if df.empty or 'DISTANCIA_URCA' not in df.columns:
-        st.warning("Dados insuficientes para análise de distância.")
-        return
-
-    bins = [0, 2, 5, 8, 12, 20, 30, 50, 100, df['DISTANCIA_URCA'].max() + 1]
-    labels = ['0-2km', '3-5km', '6-8km', '9-12km', '13-20km', '21-30km', '31-50km', '51-100km', '100km+']
-    df['Faixa_Distancia'] = pd.cut(df['DISTANCIA_URCA'], bins=bins, labels=labels, right=False, include_lowest=True)
-    faixa_evasao = (
-        df.groupby('Faixa_Distancia')
-        .apply(lambda x: (x['Evadido'] == "Evadido").mean() * 100)
-        .reset_index(name='Taxa de Evasão (%)')
-    )
-    st.dataframe(faixa_evasao, use_container_width=True)
-    fig_faixa = px.bar(
-        faixa_evasao,
-        x='Faixa_Distancia',
-        y='Taxa de Evasão (%)',
-        title='Taxa de Evasão por Faixa de Distância até a UNIRIO',
-        labels={'Faixa_Distancia': 'Faixa de Distância (km)'}
-    )
-    st.plotly_chart(fig_faixa, use_container_width=True)
-
-
 def grafico_evasao_distancia(df):
     st.subheader("🚨 Relação entre Evasão e Distância até a UNIRIO")
     if df.empty or 'DISTANCIA_URCA' not in df.columns:
@@ -135,6 +114,30 @@ def grafico_evasao_distancia(df):
     else:
         st.info("Não há dados suficientes para o teste de hipótese.")
 
+def grafico_proporcao_evasao_distancia(df):
+    st.subheader("📊 Taxa de Evasão por Faixa de Distância")
+    if df.empty or 'DISTANCIA_URCA' not in df.columns:
+        st.warning("Dados insuficientes para análise de distância.")
+        return
+
+    bins = [0, 2, 5, 8, 12, 20, 30, 50, 100, df['DISTANCIA_URCA'].max() + 1]
+    labels = ['0-2km', '3-5km', '6-8km', '9-12km', '13-20km', '21-30km', '31-50km', '51-100km', '100km+']
+    df['Faixa_Distancia'] = pd.cut(df['DISTANCIA_URCA'], bins=bins, labels=labels, right=False, include_lowest=True)
+    faixa_evasao = (
+        df.groupby('Faixa_Distancia')
+        .apply(lambda x: (x['Evadido'] == "Evadido").mean() * 100)
+        .reset_index(name='Taxa de Evasão (%)')
+    )
+    st.dataframe(faixa_evasao, use_container_width=True)
+    fig_faixa = px.bar(
+        faixa_evasao,
+        x='Faixa_Distancia',
+        y='Taxa de Evasão (%)',
+        title='Taxa de Evasão por Faixa de Distância até a UNIRIO',
+        labels={'Faixa_Distancia': 'Faixa de Distância (km)'}
+    )
+    st.plotly_chart(fig_faixa, use_container_width=True)
+
 def grafico_tempo_deslocamento(df):
     if df.empty or 'TEMPO_DESLOCAMENTO' not in df.columns:
         st.warning("Dados insuficientes para análise de tempo de deslocamento.")
@@ -143,7 +146,6 @@ def grafico_tempo_deslocamento(df):
     # --- Distribuição dos Tempos de Deslocamento (em faixas) ---
     st.subheader("⏳ Distribuição dos Tempos de Deslocamento por Faixa (Ônibus)")
     df['TEMPO_MINUTOS'] = df['TEMPO_DESLOCAMENTO'].apply(tempo_em_minutos)
-
     bins_tempo = [0, 30, 60, 90, 120, df['TEMPO_MINUTOS'].max() + 1]
     labels_tempo = ['0-30min', '31-60min', '61-90min', '91-120min', '120min+']
     df['Faixa_Tempo'] = pd.cut(df['TEMPO_MINUTOS'], bins=bins_tempo, labels=labels_tempo, right=False,
@@ -185,10 +187,12 @@ def grafico_tempo_deslocamento(df):
     st.subheader("🎓 CRA Médio por Faixa de Tempo de Deslocamento (Ônibus)")
     st.dataframe(cra_tempo, use_container_width=True)
 
+# ======================== FUNÇÃO PRINCIPAL =======================
+
 def graficos_secao_geografica(df: pd.DataFrame):
     st.header("🌍 Análise Sociodemográfica dos Discentes")
     condicoes = [
-        lambda d: (~d['BAIRRO'].isin(['', 'nan', 'na', 'desconhecido'])) & (d['BAIRRO'] != 'rio de janeiro'),
+        lambda d: (~d['BAIRRO'].isin(['', 'nan', 'na', 'desconhecido'])),
         lambda d: ~d['CIDADE'].isin(['', 'nan', 'na', 'desconhecido']),
         lambda d: ~d['ESTADO'].isin(['', 'nan', 'na', 'desconhecido']),
         lambda d: (d['ENDERECO'].notnull() & (d['ENDERECO'] != '') & d['ENDERECO'] != 'None'),
@@ -197,20 +201,25 @@ def graficos_secao_geografica(df: pd.DataFrame):
     df_filtrado, total_inicial, total_final, removidos = calcula_filtragem(df, condicoes)
     exibe_info_filtragem(total_inicial, total_final, removidos)
 
-    st.dataframe(df_filtrado, use_container_width=True)
+    # 1. Distribuição geral
     zonas_df = grafico_bairros(df_filtrado)
     zonas_validas = zonas_df[zonas_df['Alunos'] >= 10]['ZONA_GEOGRAFICA']
 
+    # 2. Comparação entre zonas
     grafico_evasao_zona(df_filtrado, zonas_validas)
     grafico_cra_zona(df_filtrado, zonas_validas)
-    grafico_mapa_rio(df_filtrado)
 
+    # 3. Gráficos de distância e deslocamento
     st.markdown("---")
     st.subheader("🔍 Análises considerando apenas alunos com DISTÂNCIA válida")
-    filtro_dist = lambda d: d['DISTANCIA_URCA'].notnull() & (d['DISTANCIA_URCA'] > 0)
+    filtro_dist = lambda d: d['DISTANCIA_URCA'].notnull() & (d['DISTANCIA_URCA'] >= 0)
     df_distancia, total_ini_d, total_fin_d, rem_d = calcula_filtragem(df_filtrado, [filtro_dist])
     exibe_info_filtragem(total_ini_d, total_fin_d, rem_d)
 
     grafico_evasao_distancia(df_distancia)
     grafico_proporcao_evasao_distancia(df_distancia)
     grafico_tempo_deslocamento(df_distancia)
+
+    # 4. Mapa (zoom visual, conclusão da seção)
+    st.markdown("---")
+    grafico_mapa_rio(df_filtrado)

@@ -122,6 +122,49 @@ def grafico_evasao(df):
     st.markdown("**📋 Tabela Resumo: Taxa de Evasão por Categoria**")
     st.dataframe(taxa_evasao.style.format({'Taxa de Evasão': '{:.2f}'}), use_container_width=True)
 
+
+def grafico_periodo_evasao(df):
+    st.subheader("Em qual período do curso ocorre mais evasão?")
+
+    # Filtra apenas evadidos e que tenham o campo correto preenchido
+    mask_evasao = df['FORMA_EVASAO_PADRONIZADA'].str.lower().isin(['evasão', 'evadido', 'evasao'])
+    col_ultimo_periodo = 'ULTIMO_PERIODO_CURSADO'  # Ajuste para o nome correto no seu DF
+    if col_ultimo_periodo not in df.columns:
+        st.info("Coluna de período cursado ('ULTIMO_PERIODO_CURSADO') não encontrada.")
+        return
+
+    df_evadidos = df[mask_evasao & df[col_ultimo_periodo].notnull()].copy()
+    if df_evadidos.empty:
+        st.info("Nenhum aluno evadido com informação de último período cursado.")
+        return
+
+    # Garante que seja int
+    df_evadidos['ULTIMO_PERIODO_CURSADO'] = df_evadidos['ULTIMO_PERIODO_CURSADO'].astype(int)
+
+    contagem = df_evadidos['ULTIMO_PERIODO_CURSADO'].value_counts().sort_index().reset_index()
+    contagem.columns = ['Período do Curso', 'Evasões']
+
+    fig = px.bar(
+        contagem, x='Período do Curso', y='Evasões',
+        title='Evasões por Período do Curso',
+        labels={'Período do Curso': 'Período cursado (1º, 2º, ...)', 'Evasões': 'Qtd. de Evasões'}
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.markdown("**📋 Tabela: Quantidade de evasões por período cursado**")
+    st.dataframe(contagem, use_container_width=True)
+
+    # Se quiser separar por cotista/não cotista:
+    if 'FORMA_INGRESSO_SIMPLIFICADO' in df_evadidos.columns:
+        cat = df_evadidos.groupby(['ULTIMO_PERIODO_CURSADO', 'FORMA_INGRESSO_SIMPLIFICADO']).size().reset_index(
+            name='Evasões')
+        fig_cat = px.bar(
+            cat, x='ULTIMO_PERIODO_CURSADO', y='Evasões', color='FORMA_INGRESSO_SIMPLIFICADO',
+            title='Evasão por Período e Categoria de Ingresso',
+            labels={'ULTIMO_PERIODO_CURSADO': 'Período cursado', 'Evasões': 'Qtd. de Evasões'},
+            barmode='group'
+        )
+        st.plotly_chart(fig_cat, use_container_width=True)
+
 # --- Função Principal da Seção ---
 
 def graficos_secao_ingresso(df: pd.DataFrame):
@@ -139,6 +182,7 @@ def graficos_secao_ingresso(df: pd.DataFrame):
 
     exibe_info_filtragem(total_inicial, total_final, removidos)
 
+
     # Formatação ingresso e evasão padronizada
     df_filtrado['FORMA_INGRESSO_SIMPLIFICADO'] = df_filtrado.apply(categorizar_ingresso_detalhado, axis=1)
     grafico_evolucao(df_filtrado)
@@ -146,4 +190,5 @@ def graficos_secao_ingresso(df: pd.DataFrame):
     grafico_cra(df_filtrado)
     grafico_tempo_medio(df_filtrado)
     grafico_evasao(df_filtrado)
+    grafico_periodo_evasao(df_filtrado)
 
