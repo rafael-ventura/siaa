@@ -47,23 +47,32 @@ def graficos_pizza(df):
         ate_2012 = df[df['ANO_INGRESSO'] <= 2012]
         dist = ate_2012['FORMA_INGRESSO_PADRONIZADA'].value_counts().reset_index()
         dist.columns = ['Categoria', 'Total']
-        fig = px.pie(dist, names='Categoria', values='Total', title='Ingresso Geral 2001-2012',
-                     color_discrete_sequence=px.colors.qualitative.Vivid)
+        labels = dist['Categoria'].tolist()
+        fig = px.pie(
+            dist, names='Categoria', values='Total', title='Ingresso Geral 2001-2012',
+            color_discrete_sequence=cores_para_labels(labels)
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
         de_2013 = df[df['ANO_INGRESSO'] >= 2013]
         dist = de_2013['FORMA_INGRESSO_PADRONIZADA'].value_counts().reset_index()
         dist.columns = ['Categoria', 'Total']
-        fig = px.pie(dist, names='Categoria', values='Total', title='Ingresso Detalhado de 2013-2023',
-                     color_discrete_sequence=px.colors.qualitative.Vivid)
+        labels = dist['Categoria'].tolist()
+        fig = px.pie(
+            dist, names='Categoria', values='Total', title='Ingresso Detalhado de 2013-2023',
+            color_discrete_sequence=cores_para_labels(labels)
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     with col3:
         dist = df['FORMA_INGRESSO_PADRONIZADA'].value_counts().reset_index()
         dist.columns = ['Categoria', 'Total']
-        fig = px.pie(dist, names='Categoria', values='Total', title='Ingresso Geral 2001-2023',
-                     color_discrete_sequence=px.colors.qualitative.Vivid)
+        labels = dist['Categoria'].tolist()
+        fig = px.pie(
+            dist, names='Categoria', values='Total', title='Ingresso Geral 2001-2023',
+            color_discrete_sequence=cores_para_labels(labels)
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("**📋 Tabela Resumo: Distribuição por Forma de Ingresso**")
@@ -73,10 +82,12 @@ def graficos_pizza(df):
 def grafico_cra(df):
     st.subheader("Diferença no CRA entre Cotistas e Não Cotistas")
     pos_cotas = df[df['FORMA_INGRESSO_SIMPLIFICADO'] != 'Pré-Cotas']
+    labels = pos_cotas['FORMA_INGRESSO_SIMPLIFICADO'].unique().tolist()
     fig = px.box(
         pos_cotas, x='FORMA_INGRESSO_SIMPLIFICADO', y='CRA', color='FORMA_INGRESSO_SIMPLIFICADO',
         title='Diferença de CRA entre Cotistas e Não Cotistas Pós-Cotas',
-        color_discrete_sequence=px.colors.qualitative.Vivid
+        color_discrete_sequence=cores_para_labels(labels),
+        category_orders={'FORMA_INGRESSO_SIMPLIFICADO': labels}
     )
     st.plotly_chart(fig)
 
@@ -88,7 +99,7 @@ def grafico_tempo_medio(df):
     concluintes = df[df['FORMA_EVASAO_PADRONIZADA'] == 'Concluiu'].copy()
 
     if concluintes.empty:
-        st.warning("⚠️ Nenhum aluno concluinte encontrado nos dados.")
+        st.warning("Nenhum aluno concluinte encontrado nos dados.")
         return
 
     concluintes = agrupar_ampla_concorrencia(concluintes)
@@ -101,16 +112,18 @@ def grafico_tempo_medio(df):
     )
 
     if tempo_medio.empty:
-        st.warning("⚠️ Dados insuficientes para calcular o tempo médio de curso.")
+        st.warning("Dados insuficientes para calcular o tempo médio de curso.")
         return
 
+    labels = tempo_medio['FORMA_INGRESSO_PADRONIZADA'].tolist()
     fig = px.bar(
         tempo_medio,
         x='FORMA_INGRESSO_PADRONIZADA', y='TEMPO_CURSO',
         color='FORMA_INGRESSO_PADRONIZADA',
         title='Tempo Médio de Curso por Categoria',
         labels={'TEMPO_CURSO': 'Tempo Médio de Curso (anos)'},
-        color_discrete_sequence=px.colors.qualitative.Vivid
+        color_discrete_sequence=cores_para_labels(labels),
+        category_orders={'FORMA_INGRESSO_PADRONIZADA': labels}
     )
     fig.update_xaxes(showticklabels=False)
     fig.update_layout(bargap=0.05)
@@ -122,19 +135,21 @@ def grafico_tempo_medio(df):
 
 def grafico_evasao(df):
     st.subheader("Taxa de Evasão (Cotistas vs. Não Cotistas)")
-    df = agrupar_ampla_concorrencia(df)  # Agrupamento aqui
+    df = agrupar_ampla_concorrencia(df)
 
     evasao = df[df['FORMA_EVASAO_PADRONIZADA'] == 'Evasão'].groupby('FORMA_INGRESSO_PADRONIZADA').size()
     total = df.groupby('FORMA_INGRESSO_PADRONIZADA').size()
-    taxa_evasao = (evasao / total * 100).reset_index(name='Taxa de Evasão').sort_values(by='Taxa de Evasão',
-                                                                                        ascending=False)
+    taxa_evasao = (evasao / total * 100).reset_index(name='Taxa de Evasão').sort_values(by='Taxa de Evasão', ascending=False)
+
+    labels = taxa_evasao['FORMA_INGRESSO_PADRONIZADA'].tolist()
     fig = px.bar(
         taxa_evasao,
         x='FORMA_INGRESSO_PADRONIZADA', y='Taxa de Evasão',
         color='FORMA_INGRESSO_PADRONIZADA',
         title='Taxa de Evasão por Categoria',
         labels={'Taxa de Evasão': 'Taxa de Evasão (%)'},
-        color_discrete_sequence=px.colors.qualitative.Vivid
+        color_discrete_sequence=cores_para_labels(labels),
+        category_orders={'FORMA_INGRESSO_PADRONIZADA': labels}
     )
     fig.update_xaxes(showticklabels=False)
     fig.update_layout(bargap=0.05)
@@ -143,13 +158,13 @@ def grafico_evasao(df):
     st.dataframe(taxa_evasao.style.format({'Taxa de Evasão': '{:.2f}'}), use_container_width=True)
 
 
+
 def grafico_periodo_evasao(df):
     st.subheader("Em qual período do curso ocorre mais evasão?")
 
-    df = calcular_ultimo_periodo_cursado(df)  # Isso adiciona a coluna 'ULTIMO_PERIODO_CURSADO'
+    df = calcular_ultimo_periodo_cursado(df)
     df['FAIXA_PERIODO_EVASAO'] = df['ULTIMO_PERIODO_CURSADO'].apply(faixa_periodo)
 
-    # O resto do seu gráfico:
     mask_evasao = df['FORMA_EVASAO_PADRONIZADA'].str.lower().isin(['evasão', 'evadido', 'evasao'])
     df_evadidos = df[mask_evasao & df['ULTIMO_PERIODO_CURSADO'].notnull()].copy()
 
@@ -157,19 +172,23 @@ def grafico_periodo_evasao(df):
         st.info("Nenhum aluno evadido com informação de período cursado.")
         return
 
-    # Contagem por faixa
     contagem = df_evadidos['FAIXA_PERIODO_EVASAO'].value_counts().sort_index().reset_index()
     contagem.columns = ['Faixa de Período', 'Evasões']
+    total_evasoes = contagem['Evasões'].sum()
+    contagem['Percentual'] = (contagem['Evasões'] / total_evasoes * 100).round(1)
 
     fig = px.bar(
-        contagem, x='Faixa de Período', y='Evasões',
+        contagem,
+        x='Faixa de Período',
+        y='Evasões',
         title='Evasões por Faixa de Período Cursado',
         labels={'Faixa de Período': 'Faixa de Período (semestres)', 'Evasões': 'Qtd. de Evasões'},
         color='Evasões',
-        color_continuous_scale=px.colors.sequential.Viridis
+        color_continuous_scale=px.colors.sequential.Viridis,
+        hover_data={'Percentual': ':.1f'}
     )
     st.plotly_chart(fig, use_container_width=True)
-    st.dataframe(contagem, use_container_width=True)
+    st.dataframe(contagem[['Faixa de Período', 'Evasões', 'Percentual']].style.format({'Percentual': '{:.1f}%%'}), use_container_width=True)
 
 
 def graficos_secao_ingresso(df: pd.DataFrame):
