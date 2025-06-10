@@ -85,6 +85,7 @@ def grafico_mapa_rio(df):
 
 def grafico_evasao_distancia(df):
     st.subheader("🚨 Relação entre Evasão e Distância até a UNIRIO")
+
     if df.empty or 'DISTANCIA_URCA' not in df.columns:
         st.warning("Dados insuficientes para análise de distância.")
         return
@@ -92,26 +93,36 @@ def grafico_evasao_distancia(df):
     # Define evadido/não evadido
     df['Evadido'] = df['FORMA_EVASAO_PADRONIZADA'].str.lower().isin(
         ['evasão', 'evadido', 'evasao']).map({True: "Evadido", False: "Não Evadido"})
+
     df_box = df.dropna(subset=['DISTANCIA_URCA', 'Evadido'])
 
-    # Médias/medianas
+    # Cálculos das estatísticas
     media_dist = df_box.groupby('Evadido')['DISTANCIA_URCA'].mean()
     mediana_dist = df_box.groupby('Evadido')['DISTANCIA_URCA'].median()
     concluintes = df_box[df_box['FORMA_EVASAO_PADRONIZADA'].str.lower().str.contains('concluiu')]
     media_concl = concluintes['DISTANCIA_URCA'].mean()
     mediana_concl = concluintes['DISTANCIA_URCA'].median()
-    st.markdown(f"""
-    - **Média (evadidos):** {media_dist.get('Evadido', float('nan')):.2f} km  
-    - **Mediana (evadidos):** {mediana_dist.get('Evadido', float('nan')):.2f} km  
-    - **Média (não evadidos):** {media_dist.get('Não Evadido', float('nan')):.2f} km  
-    - **Mediana (não evadidos):** {mediana_dist.get('Não Evadido', float('nan')):.2f} km  
-    - **Média (concluíram):** {media_concl:.2f} km  
-    - **Mediana (concluíram):** {mediana_concl:.2f} km  
-    """)
+
+    # Construir DataFrame com os resultados
+    resumo_df = pd.DataFrame({
+        'Média (km)': {
+            'Evadidos': round(media_dist.get('Evadido', float('nan')), 2),
+            'Não Evadidos': round(media_dist.get('Não Evadido', float('nan')), 2),
+            'Concluintes': round(media_concl, 2)
+        },
+        'Mediana (km)': {
+            'Evadidos': round(mediana_dist.get('Evadido', float('nan')), 2),
+            'Não Evadidos': round(mediana_dist.get('Não Evadido', float('nan')), 2),
+            'Concluintes': round(mediana_concl, 2)
+        }
+    })
+
+    st.dataframe(resumo_df)
 
     # Teste Mann-Whitney
     evadidos = df_box[df_box['Evadido'] == "Evadido"]['DISTANCIA_URCA']
     nao_evadidos = df_box[df_box['Evadido'] == "Não Evadido"]['DISTANCIA_URCA']
+
     if len(evadidos) > 0 and len(nao_evadidos) > 0:
         stat, pvalue = mannwhitneyu(evadidos, nao_evadidos, alternative='two-sided')
         st.markdown(f"**Teste Mann-Whitney:** U = `{stat:.2f}`, p-valor = `{pvalue:.3g}`")

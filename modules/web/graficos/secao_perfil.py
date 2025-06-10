@@ -59,6 +59,7 @@ def graficos_secao_perfil(df: pd.DataFrame):
     tempo_mediano_formatado = minutos_para_hrmin(tempo_mediano_min)
 
     # --- Mostra tabela resumo ---
+    # --- Mostra tabela resumo ---
     st.subheader("Resumo das Características dos Alunos")
     resumo = pd.DataFrame({
         "Indicador": [
@@ -96,7 +97,7 @@ def graficos_secao_perfil(df: pd.DataFrame):
             tempo_mediano_formatado,
         ]
     })
-    st.table(resumo)
+    st.dataframe(resumo)
 
     # --- Tabelas de frequência ---
     st.subheader("Distribuições Detalhadas")
@@ -123,7 +124,7 @@ def graficos_secao_perfil(df: pd.DataFrame):
         > O aluno mais comum de Sistemas de Informação da UNIRIO é do sexo **{sexo.lower()}**, 
         estado civil **{estado_civil.lower()}**, tem idade de **{faixa_idade}** ao ingressar, 
         reside na **{zona}** (bairro mais comum: {bairro}, cidade: {cidade}), 
-        ingressou principalmente como **{forma_ingresso}**, possui CRA mediano de **{cra_mediana:.2f}**, 
-        leva em média **{tempo_mediano:.2f} anos** para concluir o curso, percorre cerca de **{distancia_mediana:.1f} km**
+        ingressou principalmente como **{forma_ingresso}**, possui CRA médio de **{cra_medio:.2f}**, 
+        leva em média **{tempo_medio:.2f} anos** para concluir o curso, percorre cerca de **{distancia_mediana:.1f} km**
         até a universidade **e leva em torno de {tempo_mediano_formatado}** de transporte público para chegar até a UNIRIO.
     """)
