@@ -11,7 +11,6 @@ from .temporal import ModuloTemporal
 from .localizacao import ModuloLocalizacao
 from .texto import ModuloTexto
 from .validacao import ModuloValidacao
-from .classificacao import ModuloClassificacao
 from ..dados.correcoes_localizacao import correcoes_bairros, correcoes_cidades
 
 
@@ -37,7 +36,7 @@ class PipelineFormatacao:
         df = log_etapa(ModuloLocalizacao.padronizar_bairros_cidades(df), "Após padronizar bairros e cidades")
         df = log_etapa(ModuloLocalizacao.adicionar_cidade_estado(df), "Após adicionar estado")
         df = log_etapa(ModuloLocalizacao.adicionar_zona_geografica(df), "Após classificar zona")
-        df = log_etapa(ModuloClassificacao.classificar_idade(df), "Após classificar idade")
+        df = log_etapa(ModuloTemporal.classificar_idade(df), "Após classificar idade")
         df = log_etapa(ModuloNumerico.converter_tipos_numericos(df), "Após converter tipos")
         df = log_etapa(ModuloNumerico.arredondar_cra(df), "Após arredondar CRA")
         df = log_etapa(ModuloTemporal.calcular_tempo_curso(df), "Após calcular tempo de curso")

@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais">
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais [1]" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -153,7 +150,7 @@
       <workItem from="1749351892135" duration="797000" />
       <workItem from="1749406403359" duration="10848000" />
       <workItem from="1749520771448" duration="1363000" />
-      <workItem from="1749572620010" duration="8534000" />
+      <workItem from="1749572620010" duration="8659000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes na padronização da forma_ingresso.py">
       <option name="closed" value="true" />
@@ -291,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749597387466</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="ajustes finais [1]">
+      <option name="closed" value="true" />
+      <created>1749597968642</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749597968642</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +331,8 @@
     <MESSAGE value="refatoracao das secoes [5]" />
     <MESSAGE value="refatoracao das secoes [6]" />
     <MESSAGE value="ajustes finais" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais" />
+    <MESSAGE value="ajustes finais [1]" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais [1]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

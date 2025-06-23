@@ -60,7 +60,7 @@ def graficos_pizza(df):
         dist.columns = ['Categoria', 'Total']
         labels = dist['Categoria'].tolist()
         fig = px.pie(
-            dist, names='Categoria', values='Total', title='Ingresso Detalhado de 2013-2023',
+            dist, names='Categoria', values='Total', title='Ingresso Detalhado de 2013-2024',
             color_discrete_sequence=cores_para_labels(labels)
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -70,7 +70,7 @@ def graficos_pizza(df):
         dist.columns = ['Categoria', 'Total']
         labels = dist['Categoria'].tolist()
         fig = px.pie(
-            dist, names='Categoria', values='Total', title='Ingresso Geral 2001-2023',
+            dist, names='Categoria', values='Total', title='Ingresso Geral 2001-2024',
             color_discrete_sequence=cores_para_labels(labels)
         )
         st.plotly_chart(fig, use_container_width=True)
