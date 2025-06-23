@@ -63,8 +63,18 @@ def grafico_mapa_rio(df):
 
     contagem = df_rio.groupby('BAIRRO_NORM').size().reset_index(name='Alunos')
     gdf = gdf.merge(contagem, on='BAIRRO_NORM', how='left').fillna({'Alunos': 0})
-    bins = [0, 2, 5, 8, 12, 20, 30, 50, 100, gdf['Alunos'].max() + 1]
-    labels = ['0-2', '3-5', '6-8', '9-12', '13-20', '21-30', '31-50', '51-100', '100+']
+    max_alunos = gdf['Alunos'].dropna().max()
+
+    if pd.isna(max_alunos) or max_alunos < 0:
+        st.warning("Não há valores válidos de alunos por bairro para agrupar.")
+        return
+
+    bins = [0, 2, 5, 8, 12, 20, 30, 50, 100]
+    if max_alunos > 100:
+        bins.append(int(max_alunos) + 1)
+
+    labels = [f'{bins[i]}-{int(bins[i + 1]) - 1}' if i < len(bins) - 2 else f'{bins[i]}+' for i in range(len(bins) - 1)]
+
     gdf = criar_faixas(gdf, 'Alunos', bins, labels, 'Faixa_Alunos')
 
     fig = px.choropleth_mapbox(
@@ -141,14 +151,26 @@ def grafico_proporcao_evasao_distancia(df):
         st.warning("Dados insuficientes para análise de distância.")
         return
 
-    bins = [0, 2, 5, 8, 12, 20, 30, 50, 100, df['DISTANCIA_URCA'].max() + 1]
-    labels = ['0-2km', '3-5km', '6-8km', '9-12km', '13-20km', '21-30km', '31-50km', '51-100km', '100km+']
+    dist_max = df['DISTANCIA_URCA'].dropna().max()
+    if pd.isna(dist_max) or dist_max <= 0:
+        st.warning("Não há valores válidos de distância para agrupar.")
+        return
+
+    # Garante que os bins aumentam
+    bins = [0, 2, 5, 8, 12, 20, 30, 50, 100]
+    if dist_max > 100:
+        bins.append(dist_max + 1)
+
+    labels = [f'{bins[i]}-{bins[i + 1] - 1}km' for i in range(len(bins) - 1)]
+
     df['Faixa_Distancia'] = pd.cut(df['DISTANCIA_URCA'], bins=bins, labels=labels, right=False, include_lowest=True)
+
     faixa_evasao = (
         df.groupby('Faixa_Distancia')
         .apply(lambda x: (x['Evadido'] == "Evadido").mean() * 100)
         .reset_index(name='Taxa de Evasão (%)')
     )
+
     st.dataframe(faixa_evasao, use_container_width=True)
     fig_faixa = px.bar(
         faixa_evasao,
@@ -165,13 +187,27 @@ def grafico_tempo_deslocamento(df):
         st.warning("Dados insuficientes para análise de tempo de deslocamento.")
         return
 
-    # --- Distribuição dos Tempos de Deslocamento (em faixas) ---
     st.subheader("⏳ Distribuição dos Tempos de Deslocamento por Faixa (Ônibus)")
+
+    # Converter tempo para minutos
     df['TEMPO_MINUTOS'] = df['TEMPO_DESLOCAMENTO'].apply(tempo_em_minutos)
-    bins_tempo = [0, 30, 60, 90, 120, df['TEMPO_MINUTOS'].max() + 1]
-    labels_tempo = ['0-30min', '31-60min', '61-90min', '91-120min', '120min+']
+    tempo_max = df['TEMPO_MINUTOS'].dropna().max()
+
+    # Verifica se há valores válidos
+    if pd.isna(tempo_max) or tempo_max <= 0:
+        st.warning("Não há valores válidos de tempo de deslocamento para análise.")
+        return
+
+    # Define bins de forma segura
+    bins_tempo = [0, 30, 60, 90, 120]
+    if tempo_max > 120:
+        bins_tempo.append(tempo_max + 1)
+
+    labels_tempo = [f'{bins_tempo[i]}-{int(bins_tempo[i + 1]) - 1}min' for i in range(len(bins_tempo) - 1)]
     df['Faixa_Tempo'] = pd.cut(df['TEMPO_MINUTOS'], bins=bins_tempo, labels=labels_tempo, right=False,
                                include_lowest=True)
+
+    # Gráfico 1: distribuição
     tempo_faixas = df['Faixa_Tempo'].value_counts().sort_index().reset_index()
     tempo_faixas.columns = ['Faixa_Tempo', 'Quantidade de Alunos']
     fig_dist_tempo = px.bar(
@@ -182,7 +218,7 @@ def grafico_tempo_deslocamento(df):
     )
     st.plotly_chart(fig_dist_tempo, use_container_width=True)
 
-    # --- Taxa de evasão por faixa de tempo de deslocamento ---
+    # Gráfico 2: evasão
     faixa_evasao_tempo = (
         df.groupby('Faixa_Tempo')
         .apply(lambda x: (x['Evadido'] == "Evadido").mean() * 100)
@@ -199,7 +235,7 @@ def grafico_tempo_deslocamento(df):
     )
     st.plotly_chart(fig_faixa_tempo, use_container_width=True)
 
-    # --- CRA médio por faixa de tempo de deslocamento ---
+    # Gráfico 3: CRA médio
     cra_tempo = (
         df.groupby('Faixa_Tempo')['CRA']
         .mean()
@@ -209,8 +245,6 @@ def grafico_tempo_deslocamento(df):
     st.subheader("🎓 CRA Médio por Faixa de Tempo de Deslocamento (Ônibus)")
     st.dataframe(cra_tempo, use_container_width=True)
 
-
-# ======================== FUNÇÃO PRINCIPAL =======================
 
 def graficos_secao_geografica(df: pd.DataFrame):
     st.header("🌍 Análise Sociodemográfica dos Discentes")

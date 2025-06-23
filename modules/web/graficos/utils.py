@@ -138,13 +138,16 @@ def criar_faixas(df: pd.DataFrame, coluna: str, bins: list, labels: list, nome_c
 
 def calcular_taxa_evasao(df: pd.DataFrame, coluna_agrupadora: str,
                          coluna_evasao: str = 'FORMA_EVASAO_PADRONIZADA') -> pd.DataFrame:
+    evasao = df[coluna_evasao].str.lower().isin(['evasão', 'evadido', 'evasao'])
     taxa_evasao = (
-        df.groupby(coluna_agrupadora)
-        .apply(lambda x: (x[coluna_evasao].str.lower().isin(['evasão', 'evadido', 'evasao']).mean()) * 100)
-        .reset_index(name='Taxa de Evasão (%)')
+        df.assign(EVADIU=evasao)
+          .groupby(coluna_agrupadora)['EVADIU']
+          .mean()
+          .mul(100)
+          .round(2)
+          .reset_index(name='Taxa de Evasão (%)')
     )
     return taxa_evasao.sort_values('Taxa de Evasão (%)', ascending=False)
-
 
 # --- Função padronizada para categorização da evasão ---
 
