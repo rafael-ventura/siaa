@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais [1]" />
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais [2]" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +33,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -296,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749597968642</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="ajustes finais [2]">
+      <option name="closed" value="true" />
+      <created>1750718535057</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1750718535057</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,7 +341,8 @@
     <MESSAGE value="refatoracao das secoes [6]" />
     <MESSAGE value="ajustes finais" />
     <MESSAGE value="ajustes finais [1]" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais [1]" />
+    <MESSAGE value="ajustes finais [2]" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais [2]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
