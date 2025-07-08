@@ -16,6 +16,16 @@ def preparar_dados_pandemia(df: pd.DataFrame) -> pd.DataFrame:
     df['SEMESTRE_INGRESSO'] = df['SEMESTRE_INGRESSO'].astype(str).str.replace('.0', '')
     df['PERIODO_CONTINUO'] = df['ANO_INGRESSO'].astype(str) + '.' + df['SEMESTRE_INGRESSO'].astype(str)
     df['PERIODO_PANDEMIA'] = df.apply(classificar_periodo, axis=1)
+    df['SEMESTRE_EVASAO'] = df['SEMESTRE_EVASAO'].astype(str).str.replace('.0', '')
+    df['ANO_EVASAO'] = pd.to_numeric(df['ANO_EVASAO'], errors='coerce')
+    df['SEMESTRE_EVASAO'] = pd.to_numeric(df['SEMESTRE_EVASAO'], errors='coerce')
+
+    df['PERIODO_EVASAO_CONTINUO'] = df.apply(
+        lambda row: f"{int(row['ANO_EVASAO'])}.{int(row['SEMESTRE_EVASAO'])}"
+        if pd.notnull(row['ANO_EVASAO']) and pd.notnull(row['SEMESTRE_EVASAO'])
+        else None,
+        axis=1
+    )
 
     ordem_periodos = ["Pré-pandemia", "Pandemia/ERE", "Pós-pandemia"]
     tipo_categ = CategoricalDtype(categories=ordem_periodos, ordered=True)
@@ -47,16 +57,51 @@ def exibir_grafico_cra_periodo_continuo(df):
 
 
 def exibir_grafico_evasao_periodo(df):
-    st.subheader("Taxa de Evasão por Período de Ingresso")
-    evasao = df.groupby('PERIODO_CONTINUO')['EVADIDO'].mean().reset_index(name='Taxa de Evasão (%)')
-    evasao['Taxa de Evasão (%)'] *= 100
-    fig = px.line(evasao, x='PERIODO_CONTINUO', y='Taxa de Evasão (%)',
-                  title='Evolução da Taxa de Evasão por Período de Ingresso', markers=True)
-    fig.add_vrect(x0="2020.1", x1="2021.2", fillcolor="red", opacity=0.15, line_width=0, annotation_text="Pandemia/ERE",
-                  annotation_position="top left")
-    ticks = [p for p in evasao['PERIODO_CONTINUO'] if p.endswith('.1')]
+    st.subheader("Taxa de Evasão por Período (Evasão)")
+
+    # Filtra somente os evadidos com período de evasão válido
+    df_evasao = df[
+        df['EVADIDO'] & df['PERIODO_EVASAO_CONTINUO'].notnull()
+    ].copy()
+
+    if df_evasao.empty:
+        st.info("Nenhum dado de evasão com período válido.")
+        return
+
+    # Agrupa por período de evasão e conta quantos alunos evadiram
+    evasao = (
+        df_evasao
+        .groupby('PERIODO_EVASAO_CONTINUO')
+        .size()
+        .reset_index(name='Qtd. de Evasões')
+    )
+
+    # Ordena os períodos corretamente
+    evasao = evasao.sort_values(by='PERIODO_EVASAO_CONTINUO')
+
+    # Plot
+    fig = px.line(
+        evasao,
+        x='PERIODO_EVASAO_CONTINUO',
+        y='Qtd. de Evasões',
+        title='Taxa de Evasão por Período (Evasão)',
+        markers=True
+    )
+
+    # Destaque da pandemia
+    fig.add_vrect(
+        x0="2020.1", x1="2021.2",
+        fillcolor="red", opacity=0.15,
+        line_width=0,
+        annotation_text="Pandemia/ERE", annotation_position="top left"
+    )
+
+    # Deixa só os semestres .1 como tick
+    ticks = [p for p in evasao['PERIODO_EVASAO_CONTINUO'] if p.endswith('.1')]
     fig.update_xaxes(tickvals=ticks, ticktext=[t.replace('.1', '') for t in ticks])
+
     st.plotly_chart(fig, use_container_width=True)
+
 
 
 def exibir_grafico_cra_periodo_pandemico(df):
