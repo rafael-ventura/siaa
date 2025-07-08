@@ -10,7 +10,7 @@ from .numerico import ModuloNumerico
 from .temporal import ModuloTemporal
 from .localizacao import ModuloLocalizacao
 from .texto import ModuloTexto
-from .validacao import ModuloValidacao
+from .preprocessamento import ModuloPreProcessamento
 from ..dados.correcoes_localizacao import correcoes_bairros, correcoes_cidades
 
 
@@ -24,8 +24,8 @@ class PipelineFormatacao:
     def executar(df: pd.DataFrame) -> pd.DataFrame:
         print("🔧 Iniciando limpeza da planilha...")
         API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
-        df = log_etapa(ModuloValidacao.remover_colunas_desnecessarias(df), "Após remover colunas")
-        df = log_etapa(ModuloValidacao.preencher_valores_nulos(df), "Após preencher nulos")
+        df = log_etapa(ModuloPreProcessamento.remover_colunas_desnecessarias(df), "Após remover colunas")
+        df = log_etapa(ModuloPreProcessamento.preencher_valores_nulos(df), "Após preencher nulos")
         df = log_etapa(ModuloTemporal.converter_datas(df), "Após converter datas")
         df = log_etapa(ModuloTemporal.formatar_periodos(df), "Após formatar períodos")
         df = log_etapa(ModuloTexto.normalizar_e_corrigir(df, "BAIRRO", correcoes_bairros),

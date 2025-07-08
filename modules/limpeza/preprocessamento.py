@@ -1,12 +1,12 @@
 import pandas as pd
 
 
-class ModuloValidacao:
+class ModuloPreProcessamento:
     COLUNAS_REMOVER = ["Seq."]
 
     @staticmethod
     def remover_colunas_desnecessarias(df: pd.DataFrame) -> pd.DataFrame:
-        return df.drop(columns=[col for col in ModuloValidacao.COLUNAS_REMOVER if col in df.columns], errors="ignore")
+        return df.drop(columns=[col for col in ModuloPreProcessamento.COLUNAS_REMOVER if col in df.columns], errors="ignore")
 
     @staticmethod
     def preencher_valores_nulos(df: pd.DataFrame) -> pd.DataFrame:

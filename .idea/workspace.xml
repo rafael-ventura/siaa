@@ -7,11 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais [2]">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_06_2025_19_41__Changes_.xml" beforeDir="false" />
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais [3]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_geografica.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/web/graficos/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/limpeza/validacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/validacao.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,8 +120,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
-        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
+        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
       </set>
     </attachedChunks>
   </component>
@@ -157,7 +156,8 @@
       <workItem from="1749406403359" duration="10848000" />
       <workItem from="1749520771448" duration="1363000" />
       <workItem from="1749572620010" duration="8659000" />
-      <workItem from="1750718818138" duration="1352000" />
+      <workItem from="1750718818138" duration="1376000" />
+      <workItem from="1751932086244" duration="625000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes na padronização da forma_ingresso.py">
       <option name="closed" value="true" />
@@ -311,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750718535057</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="ajustes finais [3]">
+      <option name="closed" value="true" />
+      <created>1750720317607</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1750720317607</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,7 +356,8 @@
     <MESSAGE value="ajustes finais" />
     <MESSAGE value="ajustes finais [1]" />
     <MESSAGE value="ajustes finais [2]" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais [2]" />
+    <MESSAGE value="ajustes finais [3]" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais [3]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
