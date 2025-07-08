@@ -139,30 +139,39 @@ def grafico_evasao(df):
 
     evasao = df[df['FORMA_EVASAO_PADRONIZADA'] == 'Evasão'].groupby('FORMA_INGRESSO_PADRONIZADA').size()
     total = df.groupby('FORMA_INGRESSO_PADRONIZADA').size()
-    taxa_evasao = (evasao / total * 100).reset_index(name='Taxa de Evasão').sort_values(by='Taxa de Evasão', ascending=False)
+    taxa_evasao = (evasao / total * 100).reset_index(name='Taxa de Evasão (%)').sort_values(by='Taxa de Evasão (%)', ascending=False)
 
     labels = taxa_evasao['FORMA_INGRESSO_PADRONIZADA'].tolist()
     fig = px.bar(
         taxa_evasao,
-        x='FORMA_INGRESSO_PADRONIZADA', y='Taxa de Evasão',
+        x='FORMA_INGRESSO_PADRONIZADA', y='Taxa de Evasão (%)',
         color='FORMA_INGRESSO_PADRONIZADA',
-        title='Taxa de Evasão por Categoria',
-        labels={'Taxa de Evasão': 'Taxa de Evasão (%)'},
+        title='Taxa de Evasão por Categoria de Ingresso',
+        labels={'FORMA_INGRESSO_PADRONIZADA': 'Categoria de Ingresso'},
         color_discrete_sequence=cores_para_labels(labels),
         category_orders={'FORMA_INGRESSO_PADRONIZADA': labels}
     )
     fig.update_xaxes(showticklabels=False)
     fig.update_layout(bargap=0.05)
     st.plotly_chart(fig)
+
     st.markdown("**📋 Tabela Resumo: Taxa de Evasão por Categoria**")
-    st.dataframe(taxa_evasao.style.format({'Taxa de Evasão': '{:.2f}'}), use_container_width=True)
-
-
+    st.dataframe(taxa_evasao.style.format({'Taxa de Evasão (%)': '{:.2f}'}), use_container_width=True)
 
 def grafico_periodo_evasao(df):
     st.subheader("Em qual período do curso ocorre mais evasão?")
 
-    df = calcular_ultimo_periodo_cursado(df)
+    df = calcular_ultimo_periodo_cursado(
+        df,
+        ano_ingresso_col='ANO_INGRESSO',
+        sem_ingresso_col='SEMESTRE_INGRESSO',
+        ano_evasao_col='ANO_EVASAO',
+        sem_evasao_col='SEMESTRE_EVASAO',
+        col_saida='ULTIMO_PERIODO_CURSADO'
+    )
+    df['FORMA_INGRESSO_SIMPLIFICADO'] = df.apply(categorizar_ingresso_detalhado, axis=1)
+    df = df[df['FORMA_INGRESSO_SIMPLIFICADO'] != 'Pré-Cotas']  # ❗ remove Pré-Cotas da análise
+
     df['FAIXA_PERIODO_EVASAO'] = df['ULTIMO_PERIODO_CURSADO'].apply(faixa_periodo)
 
     mask_evasao = df['FORMA_EVASAO_PADRONIZADA'].str.lower().isin(['evasão', 'evadido', 'evasao'])

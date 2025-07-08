@@ -7,10 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais [3]">
+    <list default="true" id="36500492-d344-4a3c-8889-eeb7cb7ea0d8" name="Changes" comment="ajustes finais [4]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/limpeza/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/limpeza/validacao.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/limpeza/validacao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/web/graficos/secao_ingresso.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -157,7 +156,8 @@
       <workItem from="1749520771448" duration="1363000" />
       <workItem from="1749572620010" duration="8659000" />
       <workItem from="1750718818138" duration="1376000" />
-      <workItem from="1751932086244" duration="625000" />
+      <workItem from="1751932086244" duration="1738000" />
+      <workItem from="1751933864106" duration="1932000" />
     </task>
     <task id="LOCAL-00001" summary="Ajustes na padronização da forma_ingresso.py">
       <option name="closed" value="true" />
@@ -319,7 +319,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750720317607</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="ajustes finais [4]">
+      <option name="closed" value="true" />
+      <created>1751933031900</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1751933031900</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +365,8 @@
     <MESSAGE value="ajustes finais [1]" />
     <MESSAGE value="ajustes finais [2]" />
     <MESSAGE value="ajustes finais [3]" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais [3]" />
+    <MESSAGE value="ajustes finais [4]" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajustes finais [4]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
