@@ -1,62 +1,42 @@
-# 📊 SIAA - Sistema Interativo de Análise Acadêmica
+# SIAA — Interactive Academic Analytics System
 
-O **SIAA** é uma ferramenta interativa desenvolvida em Python com Streamlit que permite analisar e visualizar dados acadêmicos de forma dinâmica. A partir do upload de uma planilha `.xlsx`, a aplicação processa os dados e apresenta dashboards com gráficos e indicadores importantes sobre os estudantes do curso.
+A Streamlit app for analyzing and visualizing academic data. Upload an `.xlsx` spreadsheet and
+it processes the data into dashboards with charts and key indicators about the students in a
+course. Built for my undergraduate thesis.
 
-> 💡 O projeto também está disponível online em: [siaa-tcc.streamlit.app](https://siaa-tcc.streamlit.app/). Como se trata de um ambiente gratuito, ele permanece inativo até alguém acessá-lo. Caso queira utilizar a versão online, basta acessar o link, clicar para ativar a aplicação, aguardar alguns instantes e começar a explorar.
+> Live at [siaa-tcc.streamlit.app](https://siaa-tcc.streamlit.app/) — free-tier hosting, so it
+> sleeps when idle. Open the link, click to wake it up, and give it a few seconds.
 
-## 🚀 Como usar localmente
+## How to run locally
 
-1. **Clone o repositório**
+```bash
+git clone https://github.com/rafael-ventura/siaa.git
+cd siaa
+pip install -r requirements.txt   # a virtual environment is recommended
+streamlit run app.py
+```
 
-   ```bash
-   git clone https://github.com/rafael-ventura/siaa.git
-   cd siaa
-   ```
+Open `http://localhost:8501`, download the sample spreadsheet (pre-filled with test data) to
+try it out, or swap in your own data using the same format. Explore charts across five
+sections: admission pathways, gender breakdown, socioeconomic impact, pandemic impact, and
+student profile.
 
-2. **Instale as dependências**
-   Recomendado: usar um ambiente virtual
+## Structure
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+- `app.py` — main entry point
+- `modules/`
+  - `web/` — pages and navigation
+  - `service/` — spreadsheet processing/validation
+  - `graficos/` — chart generation
+  - `explicacoes/` — descriptive text used in the UI
+- `assets/` — images, icons, static files
 
-3. **Execute a aplicação**
+## Notes
 
-   ```bash
-   streamlit run app.py
-   ```
+- Uploaded data is **never stored** — everything runs locally, in memory.
+- Minor column-name variations in the spreadsheet are tolerated.
+- Open source, adaptable to other courses/institutions.
 
-4. **Navegue pela interface**
+## License
 
-   * Acesse a aplicação no navegador (geralmente: [http://localhost:8501](http://localhost:8501)).
-   * Faça o **download da planilha modelo** – ela já vem preenchida com dados de exemplo para testes.
-   * Você pode apenas subir essa planilha para testar a ferramenta.
-   * Depois, se quiser, substitua pelos seus próprios dados seguindo o mesmo formato.
-   * Explore os gráficos interativos divididos em cinco seções:
-
-     * Formas de Ingresso
-     * Relações de Gênero
-     * Impactos Sociodemográficos
-     * Impactos da Pandemia
-     * Perfil do Aluno
-
-## 📁 Estrutura da Aplicação
-
-* `app.py` – Arquivo principal que executa a interface.
-* `modules/` – Código modular dividido por responsabilidade:
-
-  * `web/` – Interface com páginas e controle de navegação.
-  * `service/` – Processamento e validação da planilha.
-  * `graficos/` – Funções para gerar os gráficos.
-  * `explicacoes/` – Textos descritivos usados na interface.
-* `assets/` – Pasta para imagens, ícones e arquivos estáticos.
-
-## 💡 Observações
-
-* A aplicação **não armazena os dados** enviados. Todo o processamento é feito localmente.
-* Pequenas variações nos nomes das colunas da planilha são toleradas.
-* O código é aberto e pode ser adaptado para outros cursos ou contextos educacionais.
-
-## 📚 Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
+[MIT](LICENSE)
